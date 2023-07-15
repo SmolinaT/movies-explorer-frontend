@@ -1,0 +1,145 @@
+.register {
+  max-width: 396px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  margin: 0 auto 70px;
+}
+
+.register__title {
+  width: 100%;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  color: #FFFFFF;
+  margin: 0;
+  padding: 40px 0;
+}
+
+.register__content {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin: 0;
+  padding-bottom: 16px;
+}
+
+.register__name {
+  margin: 0;
+  color: #8B8B8B;
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  padding-bottom: 5px;
+}
+
+.register__input {
+  border: 0;
+  border-bottom: 1px solid #424242;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  color: #FFFFFF;
+  margin: 0;
+  padding: 0;
+  padding-bottom: 10px;
+  outline: none;
+  background-color: #202020;
+  margin-bottom: 24px;
+}
+
+.register__input:last-of-type {
+  margin-bottom: 6px;
+}
+
+.register__input-error {
+  margin: 0;
+  color: #EE3465;
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.register__submit {
+  width: 396px;
+  height: 45px;
+  background-color: #4285F4;
+  border-radius: 3px;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  text-align: center;
+  color:  #FFFFFF;
+  padding: 0;
+  margin-top: 134px;
+  opacity: 1;
+  transition: opacity 1s linear 0.2s;
+}
+
+.register__text {
+  width: 100%;
+  color: #8B8B8B;
+  text-align: center;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  margin: 0;
+}
+
+.register__link {
+  color: #4285F4;
+  text-align: center;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  margin: 0;
+  text-decoration: none;
+}
+
+@media screen and (max-width: 768px) {
+  .register {
+    margin-bottom: 232px;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .register {
+    max-width: 260px;
+    align-items: center;
+    margin-bottom: 30px;
+  }
+  
+  .register__title {
+    text-align: center;
+    padding-top: 50px;
+    padding-bottom: 80px;
+  }
+  
+  .register__content {
+    padding-bottom: 14px;
+  }
+  
+  .register__submit {
+    width: 260px;
+    font-size: 12px;
+    margin-top: 222px;
+  }
+  
+  .register__text {
+    font-size: 12px;
+  }
+  
+  .register__link {
+    font-size: 12px;
+  }
+}
