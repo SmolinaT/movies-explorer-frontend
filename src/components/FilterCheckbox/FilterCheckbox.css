@@ -1,5 +1,6 @@
 .checkbox {
   margin: 0 auto 49px;
+  z-index: 1;
 }
 
 .checkbox__label {

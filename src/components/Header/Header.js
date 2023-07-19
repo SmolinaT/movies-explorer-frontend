@@ -1,15 +1,37 @@
-import { Routes, Route, Link } from 'react-router-dom';
-import headerLogo from '../../images/logo.svg';
+import { Routes, Route } from 'react-router-dom';
 import './Header.css';
+import Logo from '../Logo/Logo';
 import Navigation from '../Navigation/Navigation';
-
+import NavLogin from '../NavLogin/NavLogin';
 
 function Header() {
   return (
-    <header className="header">
-      <img class="header__logo" src={headerLogo} alt="Логотип-смайлик" />
-      <Navigation />
-    </header>
+      <Routes>
+        <Route path="/" element={
+          <header className="header">
+            <Logo />
+            <Navigation /> 
+          </header>  
+        } />
+        <Route path="/movies" element={
+          <header className="header">
+            <Logo />
+            <NavLogin /> 
+          </header>  
+        } />
+        <Route path="/saved-movies" element={
+          <header className="header">
+            <Logo />
+            <NavLogin /> 
+          </header>
+        } />
+        <Route path="/profile" element={
+          <header className="header">
+            <Logo />
+            <NavLogin /> 
+          </header>
+        } />
+      </Routes>
   );
 }
 

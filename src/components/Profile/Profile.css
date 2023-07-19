@@ -4,7 +4,8 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin: 0 auto 70px;
+  margin: 0 auto;
+  padding-bottom: 70px;
 }
 
 .profile__title {
@@ -89,7 +90,8 @@
 
 @media screen and (max-width: 768px) {
   .profile {
-    margin: 236px auto 269px;
+    margin-top: 236px;
+    padding-bottom: 269px;
   }
   
   .profile__title {
@@ -105,7 +107,8 @@
 @media screen and (max-width: 450px) {
   .profile {
     max-width: 260px;
-    margin: 70px auto 40px;
+    margin-top: 70px;
+    padding-bottom: 40px;
   }
   
   .profile__title {

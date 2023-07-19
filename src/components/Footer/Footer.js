@@ -4,16 +4,16 @@ import './Footer.css';
 
 function Footer() {
   return (
-    <footer class="footer">
-      <h2 class="footer__title">Учебный проект Яндекс Практикум х BeatFilm.</h2>
-      <div class="footer__container">
-        <p class="footer__year">© {new Date().getFullYear()}</p>
-        <ul class="footer__links">
-          <li class="footer__link">
-            <a class="footer__link-text" href="https://practicum.yandex.ru/">Яндекс Практикум</a>
+    <footer className="footer">
+      <h2 className="footer__title">Учебный проект Яндекс Практикум х BeatFilm.</h2>
+      <div className="footer__container">
+        <p className="footer__year">© {new Date().getFullYear()}</p>
+        <ul className="footer__links">
+          <li className="footer__link">
+            <a className="footer__link-text" href="https://practicum.yandex.ru/">Яндекс Практикум</a>
           </li>
-          <li class="footer__link">
-            <a class="footer__link-text" href="https://github.com/">Github</a>
+          <li className="footer__link">
+            <a className="footer__link-text" href="https://github.com/">Github</a>
           </li>
         </ul>
       </div>
