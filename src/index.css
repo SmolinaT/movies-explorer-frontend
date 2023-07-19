@@ -10,3 +10,15 @@
   width: 100%;
   min-height: 100vh;
 }
+
+.button-hover:hover {
+  cursor: pointer;
+  transition: opacity .5s linear .2s;
+  opacity: .8;
+}
+
+.link-hover:hover {
+  cursor: pointer;
+  transition: opacity .5s linear .2s;
+  opacity: .7;
+}

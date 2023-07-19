@@ -13,8 +13,13 @@ function SearchForm() {
           className="search-form__input" 
           placeholder="Фильм" 
           name="movie"
-          id="movie" />
-        <button type="submit" className="search-form__submit" name="searchButton" />
+          id="movie"
+          minLength="2"
+          maxLength="50" />
+        <button
+          type="submit"
+          className="search-form__submit button-hover"
+          name="searchButton" />
       </div>
       <FilterCheckbox />
     </form>

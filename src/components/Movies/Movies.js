@@ -8,7 +8,7 @@ function Movies() {
     <section className="movies">
       <SearchForm />
       <MoviesCardList />
-      <button className="movies__button" type="button">Ещё</button>
+      <button className="movies__button button-hover" type="button">Ещё</button>
     </section>
   );
 }

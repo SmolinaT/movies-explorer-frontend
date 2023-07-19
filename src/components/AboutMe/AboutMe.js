@@ -13,7 +13,7 @@ function AboutMe() {
             <p className="about-me__description">
               Я&nbsp;родилась и&nbsp;живу во&nbsp;Владивостоке, закончила кафедру электроники и&nbsp;средств связи ДВФУ. У&nbsp;меня есть муж и&nbsp;дочь. Я&nbsp;люблю слушать музыку, а&nbsp;ещё увлекаюсь вязанием. Недавно начала кодить. С&nbsp;2021 года сижу дома в&nbsp;декрете. Хочу поменять свою жизнь в&nbsp;лучшую сторону.
             </p>
-            <a className="about-me__link" href="https://github.com/SmolinaT">Github</a>
+            <a className="about-me__link link-hover" href="https://github.com/SmolinaT">Github</a>
           </div>
           <img className="about-me__photo" src={photo} alt="Фотография автора"/>
         </div>

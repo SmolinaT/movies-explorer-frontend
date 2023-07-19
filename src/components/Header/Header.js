@@ -1,4 +1,5 @@
 import { Routes, Route } from 'react-router-dom';
+import { Link } from "react-router-dom";
 import './Header.css';
 import Logo from '../Logo/Logo';
 import Navigation from '../Navigation/Navigation';
@@ -15,19 +16,25 @@ function Header() {
         } />
         <Route path="/movies" element={
           <header className="header">
-            <Logo />
+            <Link to="/" className="header__link link-hover">
+              <Logo />
+            </Link>
             <NavLogin /> 
           </header>  
         } />
         <Route path="/saved-movies" element={
           <header className="header">
-            <Logo />
+            <Link to="/" className="header__link link-hover">
+              <Logo />
+            </Link>
             <NavLogin /> 
           </header>
         } />
         <Route path="/profile" element={
           <header className="header">
-            <Logo />
+            <Link to="/" className="header__link link-hover">
+              <Logo />
+            </Link>
             <NavLogin /> 
           </header>
         } />

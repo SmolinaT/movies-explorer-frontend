@@ -16,6 +16,7 @@
     visibility: visible;
     opacity: 1;
     z-index: 3;
+    transition: linear 0.5s;
   }
   
   .menu__container {

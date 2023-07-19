@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import './Auth.css';
 
-function Auth ({ children, title, buttonText, text, link, linkText }) {
+function Auth ({ children, title, buttonText, password, errorText, text, link, linkText }) {
   return (
     <div className="auth">
       <h2 className="auth__title">{title}</h2>
@@ -15,7 +15,9 @@ function Auth ({ children, title, buttonText, text, link, linkText }) {
             className="auth__input auth__input_type_email" 
             placeholder="Email" 
             name="email"
-            id="email" />
+            id="email"
+            minLength="2"
+            maxLength="30" />
           <label className="auth__name" htmlFor="password">Пароль</label>
           <input type="password" 
             required 
@@ -23,18 +25,20 @@ function Auth ({ children, title, buttonText, text, link, linkText }) {
             placeholder="Пароль" 
             name="password"
             id="password"
-            value={123456789} />
-          <span className="auth__input-error">Что-то пошло не так...</span>
+            value={password}
+            minLength="8"
+            maxLength="15" />
+          <span className="auth__input-error">{errorText}</span>
         </div>
         <button
           type="submit"
-          className="auth__submit"
+          className="auth__submit button-hover"
           name="saveButton">
             {buttonText}
         </button>
       </form>
       <p className="auth__text">{text}&nbsp;
-        <Link to={link} className="auth__link"> {linkText}</Link>
+        <Link to={link} className="auth__link link-hover"> {linkText}</Link>
       </p>
     </div>
   );
