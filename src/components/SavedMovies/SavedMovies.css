@@ -1,4 +1,10 @@
 .movies-save {
   max-width: 1140px;
-  margin: 0 auto 170px;
+  margin: 0 auto 180px;
+}
+
+@media screen and (max-width: 560px) {
+  .movies-save {
+    margin-bottom: 170px;
+  }
 }

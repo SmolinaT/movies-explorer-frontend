@@ -31,7 +31,7 @@
     justify-content: space-between;
     align-items: center;
     padding-top: 159px;
-    padding-bottom: 90px;
+    padding-bottom: 115px;
   }
 
   .menu__close-button {
@@ -44,11 +44,9 @@
     border: none;
     cursor: pointer;
     position: absolute;
-    top: 22.4px;
-    right: 22.4px;
+    top: 27px;
+    right: 27px;
     padding: 0;
-    opacity: 1;
-    transition: opacity 1s linear 0.2s;
   }
 
   .menu__links {
@@ -91,8 +89,8 @@
   }
 
   .menu__close-button {
-    top: 13.4px;
-    right: 13.4px;
+    top: 18px;
+    right: 18px;
   }
 
   .menu__links {
@@ -100,6 +98,6 @@
   }
 
   .menu__link_status_active {
-    padding-bottom: 7px;
+    padding-bottom: 8px;
   }
 }

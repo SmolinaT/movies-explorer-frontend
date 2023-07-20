@@ -16,7 +16,7 @@
   font-weight: 400;
   line-height: normal;
   margin: 0;
-  padding-bottom: 5px;
+  padding-bottom: 3px;
 }
 
 .not-found__subtitle {
@@ -45,7 +45,7 @@
 
 @media screen and (max-width: 768px) {
   .not-found {
-    margin-top: 408px; 
+    padding-top: 408px; 
     padding-bottom: 222px;
   }
 }
@@ -53,7 +53,7 @@
 @media screen and (max-width: 450px) {
   .not-found {
     max-width: 300px;
-    margin-top: 329px;
+    padding-top: 329px;
     padding-bottom: 30px;
   }
 

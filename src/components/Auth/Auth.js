@@ -13,7 +13,7 @@ function Auth ({ children, title, buttonText, password, errorText, text, link, l
           <input type="email" 
             required 
             className="auth__input auth__input_type_email" 
-            placeholder="Email" 
+            placeholder="Email"
             name="email"
             id="email"
             minLength="2"
@@ -26,6 +26,7 @@ function Auth ({ children, title, buttonText, password, errorText, text, link, l
             name="password"
             id="password"
             value={password}
+            readOnly
             minLength="8"
             maxLength="15" />
           <span className="auth__input-error">{errorText}</span>

@@ -18,7 +18,7 @@
 .portfolio__links {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 10px;
   list-style-type: none;
   margin: 0;
   padding: 0;
@@ -36,6 +36,7 @@
 
 .portfolio__link:last-child {
   border-bottom: none;
+  padding-bottom: 0;
 }
 
 .portfolio__link-text {
@@ -45,6 +46,7 @@
   font-style: normal;
   font-weight: 400;
   line-height: 50px;
+  letter-spacing: -1.2px;
   text-decoration: none;
 }
 
@@ -107,6 +109,7 @@
 
   .portfolio__links {
     padding-top: 40px;
+    gap: 20px;
   }
   
   .portfolio__link {
@@ -116,6 +119,7 @@
   .portfolio__link-text {
     font-size: 18px;
     line-height: 28px;
+    letter-spacing: -0.72px;
   }
   
   .portfolio__badge {

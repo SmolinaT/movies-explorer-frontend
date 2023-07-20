@@ -1,6 +1,6 @@
 .movies {
   max-width: 1140px;
-  margin: 0 auto 80px;
+  margin: 0 auto 90px;
   display: flex;
   flex-direction: column;
 }
@@ -22,8 +22,6 @@
   padding: 0;
   padding-top: 11px;
   padding-bottom: 9px;
-  opacity: 1;
-  transition: opacity 1s linear 0.2s;
 }
 
 @media screen and (max-width: 1150px) {
@@ -39,6 +37,10 @@
 }
 
 @media screen and (max-width: 560px) {
+  .movies {
+    margin-bottom: 80px;
+  }
+  
   .movies__button {
     width: 300px;
   }

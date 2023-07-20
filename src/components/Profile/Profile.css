@@ -16,7 +16,7 @@
   line-height: normal;
   color: #FFFFFF;
   margin: 0;
-  padding: 74px 0 123px;
+  padding: 70px 0 123px;
 }
 
 .profile__content {
@@ -24,7 +24,7 @@
   flex-direction: column;
   width: 100%;
   margin: 0;
-  padding-bottom: 220px;
+  padding-bottom: 217px;
 }
 
 .profile__space {
@@ -90,7 +90,7 @@
 
 @media screen and (max-width: 768px) {
   .profile {
-    margin-top: 236px;
+    margin-top: 233px;
     padding-bottom: 269px;
   }
   
@@ -100,25 +100,29 @@
   }
   
   .profile__content {
-    padding-bottom: 210px;
+    padding-bottom: 207px;
+  }
+
+  .profile__space {
+    margin-bottom: 15px;
   }
 }
 
 @media screen and (max-width: 450px) {
   .profile {
     max-width: 260px;
-    margin-top: 70px;
+    margin-top: 66px;
     padding-bottom: 40px;
   }
   
   .profile__title {
-    padding-bottom: 80px;
+    padding-bottom: 81px;
   }
   
   .profile__content {
-    padding-bottom: 379px;
+    padding-bottom: 376px;
   }
-  
+
   .profile__edit-button {
     font-size: 12px;
   }

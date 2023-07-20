@@ -16,7 +16,7 @@
   line-height: normal;
   color: #FFFFFF;
   margin: 0;
-  padding: 22px 0 40px;
+  padding: 20px 0 40px;
 }
 
 .auth__content {
@@ -80,7 +80,7 @@
 .auth__submit {
   width: 396px;
   height: 45px;
-  margin-top: 69px;
+  margin-top: 68px;
   background-color: #4285F4;
   border-radius: 3px;
   border: none;
@@ -92,8 +92,6 @@
   text-align: center;
   color:  #FFFFFF;
   padding: 0;
-  opacity: 1;
-  transition: opacity 1s linear 0.2s;
 }
 
 .auth__text {
@@ -116,4 +114,45 @@
   line-height: normal;
   margin: 0;
   text-decoration: none;
+}
+
+@media screen and (max-width: 768px) {
+  .auth__title {
+    padding-top: 18px;
+  }
+
+  .auth__submit {
+    margin-top: 69px;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .auth {
+    max-width: 260px;
+    padding-bottom: 30px;
+  }
+  
+  .auth__title {
+    text-align: center;
+    margin: 0;
+    padding: 30px 0 80px;
+  }
+  
+  .auth__content {
+    padding-bottom: 14px;
+  }
+
+  .auth__submit {
+    width: 260px;
+    margin-top: 156px;
+    font-size: 12px;
+  }
+  
+  .auth__text {
+    font-size: 12px;
+  }
+  
+  .auth__link {
+    font-size: 12px;
+  }
 }

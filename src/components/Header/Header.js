@@ -9,7 +9,7 @@ function Header() {
   return (
       <Routes>
         <Route path="/" element={
-          <header className="header">
+          <header className="header header_page_main">
             <Logo />
             <Navigation /> 
           </header>  

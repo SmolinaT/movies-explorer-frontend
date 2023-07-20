@@ -16,7 +16,8 @@
 .movie__label {
   display: flex;
   justify-content: space-between;
-  padding: 14px 12px;
+  align-items: center;
+  padding: 0 11px;
 }
 
 .movie__info {
@@ -33,6 +34,7 @@
   font-weight: 500;
   line-height: normal;
   margin: 0;
+  padding-top: 13px;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;

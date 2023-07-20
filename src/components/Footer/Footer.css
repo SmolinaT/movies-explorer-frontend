@@ -13,7 +13,7 @@
   font-style: normal;
   font-weight: 400;
   line-height: normal;
-  padding-top: 79px;
+  padding-top: 69px;
   border-bottom: 1px solid rgb(66, 66, 66);
   margin: 0;
   padding-bottom: 20px;
@@ -68,6 +68,7 @@
   
   .footer__title {
     font-size: 12px;
+    padding-top: 79px;
     padding-bottom: 21px;
   }
   
