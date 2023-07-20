@@ -1,4 +1,4 @@
-.movies {
+.movies__container {
   max-width: 1140px;
   margin: 0 auto 90px;
   display: flex;
@@ -37,7 +37,7 @@
 }
 
 @media screen and (max-width: 560px) {
-  .movies {
+  .movies__container {
     margin-bottom: 80px;
   }
   
