@@ -18,7 +18,7 @@
 .portfolio__links {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 20px;
   list-style-type: none;
   margin: 0;
   padding: 0;
@@ -29,9 +29,7 @@
   max-width: 1140px;
   width: 100%;
   border-bottom: 1px solid rgb(66, 66, 66);
-  display: flex;
-  justify-content: space-between;
-  padding-bottom: 19px;
+  padding-bottom: 6px;
 }
 
 .portfolio__link:last-child {
@@ -48,6 +46,8 @@
   line-height: 50px;
   letter-spacing: -1.2px;
   text-decoration: none;
+  display: flex;
+  justify-content: space-between;
 }
 
 .portfolio__badge {
@@ -72,7 +72,7 @@
   
   .portfolio__link {
     max-width: 668px;
-    border-bottom: 1px solid rgb(230, 230, 230);
+    padding-bottom: 8px;
   }
   
   .portfolio__link-text {
@@ -85,6 +85,12 @@
   } 
 }
 
+@media screen and (max-width: 900px) {
+  .portfolio__link {
+    border-bottom: 1px solid rgb(230, 230, 230);
+  } 
+}
+
 @media screen and (max-width: 690px) {
   .portfolio {
     max-width: 550px;
@@ -92,6 +98,7 @@
   
   .portfolio__link {
     max-width: 550px;
+    padding-bottom: 17px;
   }
 }
 

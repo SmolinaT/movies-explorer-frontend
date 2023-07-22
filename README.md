@@ -14,4 +14,4 @@
 
 ## Ссылки на макет в Figma
 
-https://disk.yandex.ru/d/l0OPSMTLKRYAkw
+https://disk.yandex.ru/d/qCorOS5OILHEZg

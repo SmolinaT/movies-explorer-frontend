@@ -8,17 +8,19 @@ import Footer from '../Footer/Footer';
 
 function Movies() {
   return (
-    <section className="movies">
+    <>
       <Header>
         <NavLogin /> 
       </Header>
-      <div className="movies__container">
-        <SearchForm />
-        <MoviesCardList />
-        <button className="movies__button button-hover" type="button">Ещё</button>
-      </div>
+      <main className="movies">
+        <div className="movies__container">
+          <SearchForm />
+          <MoviesCardList />
+          <button className="movies__button button-hover" type="button">Ещё</button>
+        </div>
+      </main>
       <Footer />
-    </section>
+    </>
   );
 }
 

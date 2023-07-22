@@ -12,8 +12,8 @@ function Portfolio() {
               href="https://github.com/SmolinaT/how-to-learn"
               target="_blank" rel="noreferrer">
                 Статичный сайт
+                <span className="portfolio__badge">↗</span>
             </a>
-            <p className="portfolio__badge">↗</p>
           </li>
           <li className="portfolio__link">
             <a
@@ -21,8 +21,8 @@ function Portfolio() {
               href="https://smolinat.github.io/russian-travel/"
               target="_blank" rel="noreferrer">
                 Адаптивный сайт
+                <span className="portfolio__badge">↗</span>
             </a>
-            <p className="portfolio__badge">↗</p>
           </li>
           <li className="portfolio__link">
             <a
@@ -30,8 +30,8 @@ function Portfolio() {
               href="https://smolina.nomoredomains.work"
               target="_blank" rel="noreferrer">
                 Одностраничное приложение
+                <span className="portfolio__badge">↗</span>
             </a>
-            <p className="portfolio__badge">↗</p>
           </li>
         </ul>
     </section>

@@ -20,7 +20,6 @@ function NavLogin() {
       <div className="nav-login__links">
         <NavLink
           to="/movies"
-          href="#"
           className={({isActive}) => isActive 
             ? "nav-login__link nav-login__link_status_active link-hover"
             : "nav-login__link link-hover"}>
@@ -28,7 +27,6 @@ function NavLogin() {
         </NavLink>
         <NavLink
           to="/saved-movies"
-          href="#"
           className={({isActive}) => isActive 
             ? "nav-login__link nav-login__link_status_active link-hover"
             : "nav-login__link link-hover"}>
@@ -36,7 +34,6 @@ function NavLogin() {
         </NavLink>
         <Link
           to="/profile"
-          href="#"
           className="nav-login__link nav-login__link_color_gray link-hover">
             Аккаунт
         </Link>

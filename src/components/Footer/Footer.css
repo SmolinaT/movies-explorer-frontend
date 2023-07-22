@@ -49,9 +49,21 @@
   text-decoration: none;
 }
 
+@media screen and (max-width: 1200px) {
+  .footer {
+    max-width: 1100px;
+  }
+}
+
 @media screen and (max-width: 1150px) {
   .footer {
     max-width: 708px;
+  }
+}
+
+@media screen and (max-width: 750px) {
+  .footer {
+    max-width: 680px;
   }
 }
 

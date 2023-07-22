@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import './Auth.css';
 
-function Auth ({ children, title, buttonText, password, errorText, text, link, linkText }) {
+function Auth ({ children, title, buttonText, errorText, text, link, linkText }) {
   return (
     <div className="auth">
       <h2 className="auth__title">{title}</h2>
@@ -25,8 +25,6 @@ function Auth ({ children, title, buttonText, password, errorText, text, link, l
             placeholder="Пароль" 
             name="password"
             id="password"
-            value={password}
-            readOnly
             minLength="8"
             maxLength="15" />
           <span className="auth__input-error">{errorText}</span>

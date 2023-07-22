@@ -13,7 +13,6 @@ function Register () {
       <Auth
         title="Добро пожаловать!"
         buttonText="Зарегистрироваться"
-        password="123456789"
         errorText="Что-то пошло не так..."
         text="Уже зарегистрированы?"
         link="/signin"

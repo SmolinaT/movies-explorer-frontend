@@ -8,16 +8,18 @@ import Footer from '../Footer/Footer';
 
 function SavedMovies() {
   return (
-    <section className="movies-save">
+    <>
       <Header>
         <NavLogin />
       </Header>
-      <div className="movies-save__container">
-        <SearchForm />
-        <MoviesSaveCardList />
-      </div>
+      <main className="movies-save">
+        <div className="movies-save__container">
+          <SearchForm />
+          <MoviesSaveCardList />
+        </div>
+      </main>
       <Footer />
-    </section>
+    </>
   );
 }
 
