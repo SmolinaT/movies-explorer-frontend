@@ -1,0 +1,115 @@
+.search-form {
+  max-width: 1140px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+.search-form__container {
+  display: grid;
+  grid-template-columns: 4% 89% 7%;
+  border-bottom: 1px solid #424242;
+  padding-top: 66px;
+  padding-bottom: 15px;
+  margin-bottom: 29px;
+  align-items: center
+}
+
+.search-form__icon {
+  width: 34px;
+  height: 34px;
+  margin-left: 5px;
+  background-color: transparent;
+  background-image: url('../../images/search_icon_1280.svg');
+  background-repeat: no-repeat;
+}
+
+.search-form__input {
+  border: 0;
+  text-align: center;
+  font-size: 28px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  color: #8B8B8B;
+  margin: 0;
+  padding: 0;
+  padding-left: 30px;
+  outline: none;
+  background-color: #202020;
+}
+
+.search-form__submit {
+  width: 80px;
+  height: 34px;
+  background-color: transparent;
+  background-image: url('../../images/search_button_icon.svg');
+  background-repeat: no-repeat;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  margin-top: 0;
+}
+
+@media screen and (max-width: 1150px) {
+  .search-form {
+    max-width: 708px;
+  }
+  
+  .search-form__container {
+    grid-template-columns: 7% 82% 11%;
+    padding-top: 79px;
+    padding-bottom: 8px;
+    margin-bottom: 27px;
+  }
+  
+  .search-form__icon {
+    width: 46px;
+    height: 46px;
+    margin: 0;
+    background-image: url('../../images/search_icon_768.svg');
+  }
+}
+
+@media screen and (max-width: 710px) {
+  .search-form {
+    max-width: 550px;
+  }
+
+  .search-form__container {
+    grid-template-columns: 8.4% 77% 14.6%;
+    padding-top: 79px;
+  }
+}
+
+@media screen and (max-width: 560px) {
+  .search-form {
+    max-width: 292px;
+  }
+  
+  .search-form__container {
+    grid-template-columns: 0% 73% 27%;
+    padding-top: 86px;
+    margin-bottom: 40px;
+    padding-bottom: 0;
+    align-items: flex-end;
+  }
+
+  .search-form__icon {
+    background-image: none;
+  }
+  
+  .search-form__input {
+    text-align: start;
+    font-size: 18px;
+    margin-bottom: 15px;
+    padding-left: 0;
+  }
+  
+  .search-form__submit {
+    margin-bottom: 9px;
+  }
+}
+
