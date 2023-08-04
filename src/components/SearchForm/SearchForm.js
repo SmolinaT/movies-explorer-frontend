@@ -2,7 +2,7 @@ import React from 'react';
 import './SearchForm.css';
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 
-function SearchForm({handleSearchMovie}) {
+function SearchForm({handleSearchMovie, onChange, checked}) {
   const [keyword, setKeyword] = React.useState('');
   const [isValid, setIsValid] = React.useState(false);
   const [errorText, setErrorText] = React.useState('');
@@ -43,7 +43,7 @@ function SearchForm({handleSearchMovie}) {
           name="searchButton" />
       </div>
       <span className='search-form__error'>{!isValid && errorText}</span>
-      <FilterCheckbox/>
+      <FilterCheckbox onChange={onChange} checked={checked} />
     </form>
   );
 }

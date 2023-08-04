@@ -11,6 +11,7 @@ import { mainApi } from '../../utils/MainApi';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import ProtectedRouteElement from '../ProtectedRoute/ProtectedRoute';
 import { moviesApi } from '../../utils/MoviesApi';
+import { useResize } from '../../hooks/useResize';
 
 function App() {
   const [loggIn, setLoggIn] = React.useState(false);
@@ -170,6 +171,17 @@ function handleSearchMovie(keyword) {
   }
 }
 
+//Изменение состояния чекбокса
+function handleChangeCheckbox() {
+  setSelectedCheckbox(!selectedCheckbox);
+  if (!selectedCheckbox) {
+    setFoundMovies(findShortMovie(initialMovies));
+  } else {
+    setFoundMovies(initialMovies);
+  }
+  localStorage.setItem('selectedCheckbox', !selectedCheckbox);
+}
+
   return (
     <div className='page'>
       <CurrentUserContext.Provider value={currentUser}>
@@ -194,7 +206,8 @@ function handleSearchMovie(keyword) {
               handleSearchMovie={handleSearchMovie}
               isServerError={isServerError}
               isNotFound={isNotFound}
-              initialMovies={initialMovies}/>
+              onChange={handleChangeCheckbox}
+              checked={selectedCheckbox}/>
           } />
           <Route path="/profile" element={
             <ProtectedRouteElement 

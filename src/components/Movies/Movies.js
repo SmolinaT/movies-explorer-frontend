@@ -13,8 +13,9 @@ function Movies({
   isServerError,
   movies,
   isNotFound,
-  initialMovies,
-  onSave }) {
+  onChange,
+  checked,
+  initialCards}) {
   return (
     <>
       <Header>
@@ -22,7 +23,7 @@ function Movies({
       </Header>
       <main className="movies">
         <div className="movies__container">
-          <SearchForm handleSearchMovie={handleSearchMovie} />
+          <SearchForm handleSearchMovie={handleSearchMovie} onChange={onChange} checked={checked} />
           {isLoading ?(
             <Preloader />)
           : (
@@ -37,8 +38,9 @@ function Movies({
                 : 'movies__message_type_disabled'}`}>
                   По вашему запросу ничего не найденно.
               </p>
-              <MoviesCardList movies={movies} initialMovies={initialMovies} onSave={onSave} />
-                <button className="movies__button button-hover">Ещё</button>
+              <MoviesCardList movies={movies} initialCards={initialCards} isMoviesPage={true}/>
+                <button className="movies__button button-hover"
+                type="button">Ещё</button>
             </>
           )}
         </div>
