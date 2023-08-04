@@ -2,34 +2,19 @@ import React from 'react';
 import './MoviesCardList.css'
 import MoviesCard from '../MoviesCard/MoviesCard';
 
-function MoviesCardList() {
+function MoviesCardList({ movies, initialMovies, onSave }) {
+  const moviesElements = movies.slice(0, initialMovies).map((movie) => (
+    <MoviesCard key={movie.id || movie._id} movie={movie}>
+      <button
+        className="movies-list__button movies-list__button_type_save button-hover"
+        type="button"
+        onClick={onSave}/>
+    </MoviesCard>
+  ))
+
   return (
     <section className="movies-list">
-      <MoviesCard>
-        <button
-          className="movies-list__button movies-list__button_type_save button-hover"
-          type="button"/>
-      </MoviesCard>
-      <MoviesCard>
-        <button
-          className="movies-list__button movies-list__button_status_active button-hover"
-          type="button"/>
-      </MoviesCard>
-      <MoviesCard>
-        <button
-          className="movies-list__button movies-list__button_type_save button-hover"
-          type="button"/>
-      </MoviesCard>
-      <MoviesCard>
-        <button
-          className="movies-list__button movies-list__button_type_save button-hover"
-          type="button"/>
-      </MoviesCard>
-      <MoviesCard>
-        <button
-          className="movies-list__button movies-list__button_status_active button-hover"
-          type="button"/>
-      </MoviesCard>
+        {moviesElements}
     </section>
   );
 }

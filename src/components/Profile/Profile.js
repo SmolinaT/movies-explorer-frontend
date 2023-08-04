@@ -2,51 +2,120 @@ import React from "react";
 import './Profile.css';
 import Header from "../Header/Header";
 import NavLogin from "../NavLogin/NavLogin";
+import useValidateForm from "../../hooks/useValidateForm";
+import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 
-function Profile () {
+function Profile ({ onSignOut, isSending, errorMessage, onUpdateUser, isBtnSaveVisible, setIsBtnSaveVisible }) {
+  const {
+    values,
+    setValues,
+    errors,
+    isValid,
+    handleChange,
+    resetForm
+  } = useValidateForm();
+
+  const currentUser = React.useContext(CurrentUserContext);
+
+  //const [isInputDisabled, setIsInputDisabled] = React.useState(true);
+  const [isSuccess, setIsSuccess] = React.useState(false);
+
+  React.useEffect(() => {
+    setValues(currentUser);
+    setIsBtnSaveVisible(false);
+  }, [currentUser, setValues, setIsBtnSaveVisible])
+
+  function handleSubmit(e) {
+    e.preventDefault();
+
+    onUpdateUser({
+      name: values.name,
+      email: values.email
+    });
+    resetForm();
+  }
+
+  function handleUpdateProfile() {
+    setIsBtnSaveVisible(true);
+    setIsSuccess(false);
+  }
+
+  function handleChangesSave() {
+    setIsSuccess(true)
+  }
+
   return (
     <>
       <Header>
         <NavLogin />
       </Header>
       <main className="profile">
-        <div className="profile__container">
-          <h2 className="profile__title">Привет, Татьяна!</h2>
-          <form className="profile__content">
+        <h2 className="profile__title">Привет, {currentUser.name}!</h2>
+        <form className="profile__form" onSubmit={handleSubmit} noValidate>
+          <div className="profile__content">
             <div className="profile__space">
               <label className="profile__name" htmlFor="name">Имя</label>
               <input type="text" 
                 required 
                 className="profile__input" 
-                placeholder="Татьяна" 
                 name="name"
                 id="name"
                 minLength="1"
-                maxLength="20" />
+                maxLength="20"
+                value={values.name || currentUser.name} 
+                onChange={handleChange}
+                disabled={isBtnSaveVisible ? false : true} />
             </div>
+            <span className="profile__input-error">{errors.name || ''}</span>
             <div className="profile__space">
               <label className="profile__name" htmlFor="email">E-mail</label>
               <input type="email" 
                 required 
                 className="profile__input" 
-                placeholder="pochta@yandex.ru" 
                 name="email"
                 id="email"
                 minLength="2"
-                maxLength="30" />
+                maxLength="30"
+                value={values.email || currentUser.email} 
+                onChange={handleChange}
+                disabled={isBtnSaveVisible ? false : true} />
             </div>
-          </form>
-            <button
-              className="profile__edit-button button-hover"
-              type="button">
-                Редактировать
-            </button>
-            <button
-              className="profile__close-button button-hover"
-              type="button">
-                Выйти из аккаунта
-            </button>
-        </div>
+            <span className="profile__input-error">{errors.email || ''}</span>
+          </div>
+          {!isBtnSaveVisible ? (
+            <>
+              <button
+                className="profile__edit-button button-hover"
+                type="button"
+                onClick={handleUpdateProfile}>
+                  Редактировать
+              </button>
+              <button
+                className="profile__close-button button-hover"
+                type="button"
+                onClick={onSignOut}>
+                  Выйти из аккаунта
+              </button>
+            </>
+          ) : (
+            <div className="profile__button-container">
+              {isSuccess ?(
+                 <p className="profile__error profile__error_status_ok">Изменение данных прошло успешно</p>
+              ) : (
+                <span className="profile__error profile__error_status_bad">{errorMessage}</span>
+              )}
+              <button
+                type="submit"
+                className={`profile__submit ${!isValid
+                  ? 'profile__submit_type_disabled' 
+                  : 'button-hover'}`}
+                name="saveProfileButton"
+                onClick={handleChangesSave}>
+                  {isSending ?'Сохранение..' : 'Сохранить'}
+              </button>
+          </div>
+          )}
+        </form>
       </main>
     </>
   );

@@ -15,7 +15,7 @@ function SavedMovies() {
       <main className="movies-save">
         <div className="movies-save__container">
           <SearchForm />
-          <MoviesSaveCardList />
+          <MoviesSaveCardList/>
         </div>
       </main>
       <Footer />
