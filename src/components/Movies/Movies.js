@@ -15,7 +15,8 @@ function Movies({
   isNotFound,
   onChange,
   checked,
-  initialCards}) {
+  onClick,
+  initialMoviesCard}) {
   return (
     <>
       <Header>
@@ -38,9 +39,13 @@ function Movies({
                 : 'movies__message_type_disabled'}`}>
                   По вашему запросу ничего не найденно.
               </p>
-              <MoviesCardList movies={movies} initialCards={initialCards} isMoviesPage={true}/>
-                <button className="movies__button button-hover"
-                type="button">Ещё</button>
+              <MoviesCardList movies={movies} initialMoviesCard={initialMoviesCard} isMoviesPage={true}/>
+                <button className={
+                  movies.length <= 7 || initialMoviesCard >= movies.length
+                     ? "movies__button_type_hidden"
+                     : "movies__button button-hover"
+                } 
+                type="button" onClick={onClick}>Ещё</button>
             </>
           )}
         </div>

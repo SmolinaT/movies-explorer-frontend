@@ -30,6 +30,10 @@ function App() {
 
   const navigate = useNavigate();
 
+  const windowWidth = useResize();
+  const [initialMoviesCard, setInitialMoviesCard] = React.useState({});
+  const [moreMoviesCard, setMoreMoviesCard] = React.useState({});
+
   React.useEffect(() => {
     if(loggIn) {
       Promise.all([mainApi.getUserData(), moviesApi.getMovies()])
@@ -182,6 +186,27 @@ function handleChangeCheckbox() {
   localStorage.setItem('selectedCheckbox', !selectedCheckbox);
 }
 
+//Отслеживание добавления карточек, взависимости от ширины экрана
+React.useEffect(() => {
+  if (windowWidth >= 1280) {
+    setInitialMoviesCard(12);
+     setMoreMoviesCard(4);
+  }
+  if (windowWidth < 1150 && windowWidth >= 560) {
+    setInitialMoviesCard(8);
+     setMoreMoviesCard(2);
+  }
+  if (windowWidth < 480) {
+    setInitialMoviesCard(5);
+     setMoreMoviesCard(2);
+  }
+}, [windowWidth])
+
+//Добавление карточек кнопкой Еще
+function handleMoreButtonClick() {
+  setInitialMoviesCard(initialMoviesCard + moreMoviesCard);
+}
+
   return (
     <div className='page'>
       <CurrentUserContext.Provider value={currentUser}>
@@ -207,7 +232,9 @@ function handleChangeCheckbox() {
               isServerError={isServerError}
               isNotFound={isNotFound}
               onChange={handleChangeCheckbox}
-              checked={selectedCheckbox}/>
+              checked={selectedCheckbox}
+              onClick={handleMoreButtonClick}
+              initialMoviesCard={initialMoviesCard}/>
           } />
           <Route path="/profile" element={
             <ProtectedRouteElement 
