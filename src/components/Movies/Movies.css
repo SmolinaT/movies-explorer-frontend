@@ -46,7 +46,7 @@
 }
 
 @media screen and (max-width: 1150px) {
-  .movies__message_type_disabled {
+  .movies__message {
     max-width: 708px;
     font-size: 12px;
     line-height: 18px;
@@ -58,7 +58,7 @@
 }
 
 @media screen and (max-width: 710px) {
-  .movies__message_type_disabled {
+  .movies__message {
     max-width: 550px;
   }
   
@@ -72,7 +72,7 @@
     margin-bottom: 80px;
   }
   
-  .movies__message_type_disabled {
+  .movies__message {
     max-width: 300px;
   }
 

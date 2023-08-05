@@ -34,13 +34,18 @@ function App() {
   const [initialMoviesCard, setInitialMoviesCard] = React.useState({});
   const [moreMoviesCard, setMoreMoviesCard] = React.useState({});
 
+  const [savedMovie, setSavedMovie] = React.useState([]);
+  const [foundSavedMovies, setFoundSavedMovies] = React.useState([]);
+
   React.useEffect(() => {
     if(loggIn) {
-      Promise.all([mainApi.getUserData(), moviesApi.getMovies()])
-      .then(([me, movie]) => {
+      Promise.all([mainApi.getUserData(), moviesApi.getMovies(), mainApi.getSavedMovies()])
+      .then(([me, movie, savedMovie]) => {
         setCurrentUser(me);
         localStorage.setItem("movie", JSON.stringify(movie));
         setMovies(JSON.parse(localStorage.getItem("movie")));
+        localStorage.setItem("savedMovie", JSON.stringify(savedMovie));
+        setSavedMovie(JSON.parse(localStorage.getItem("savedMovie")));
       })
       .catch((err) => {
         console.log(err);
@@ -207,6 +212,31 @@ function handleMoreButtonClick() {
   setInitialMoviesCard(initialMoviesCard + moreMoviesCard);
 }
 
+//Сохраненные фильмы
+function selectSavedFilmDuration(keyword) {
+  const serchSaveMovies = findMovie(savedMovie, keyword);
+  const serchSaveShotMovies = findShortMovie(serchSaveMovies);
+  if (!selectedCheckbox) {
+    setFoundSavedMovies(serchSaveMovies);
+  } else {
+    setFoundSavedMovies(serchSaveShotMovies)
+  }
+}
+
+function handleSearchSavedMovie(keyword) {
+  const serchSaveMovies = findMovie(savedMovie, keyword);
+
+  setIsLoading(true);
+  setTimeout(() => setIsLoading(false), 1000);
+  selectSavedFilmDuration(keyword);
+  setInitialMovies(serchSaveMovies)
+  if (serchSaveMovies.length === 0) {
+    setIsNotFound(true);
+  } else {
+    setIsNotFound(false);
+  }
+}
+
   return (
     <div className='page'>
       <CurrentUserContext.Provider value={currentUser}>
@@ -234,7 +264,8 @@ function handleMoreButtonClick() {
               onChange={handleChangeCheckbox}
               checked={selectedCheckbox}
               onClick={handleMoreButtonClick}
-              initialMoviesCard={initialMoviesCard}/>
+              initialMoviesCard={initialMoviesCard}
+              isMoviesPage={true}/>
           } />
           <Route path="/profile" element={
             <ProtectedRouteElement 
@@ -250,7 +281,13 @@ function handleMoreButtonClick() {
           <Route path="/saved-movies" element={
             <ProtectedRouteElement
             element={SavedMovies}
-            loggIn={loggIn} />
+            loggIn={loggIn}
+            savedMovies={foundSavedMovies}
+            handleSearchSavedMovie={handleSearchSavedMovie}
+            isServerError={isServerError}
+            isNotFound={isNotFound}
+            isLoading={isLoading}
+            isMoviesPage={false} />
           } />
           <Route path="*" element={<PageNotFound />} />
         </Routes>

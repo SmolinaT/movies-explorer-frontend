@@ -16,7 +16,8 @@ function Movies({
   onChange,
   checked,
   onClick,
-  initialMoviesCard}) {
+  initialMoviesCard,
+  isMoviesPage }) {
   return (
     <>
       <Header>
@@ -24,7 +25,7 @@ function Movies({
       </Header>
       <main className="movies">
         <div className="movies__container">
-          <SearchForm handleSearchMovie={handleSearchMovie} onChange={onChange} checked={checked} />
+          <SearchForm handleSearchMovie={handleSearchMovie} onChange={onChange} checked={checked} isMoviesPage={isMoviesPage} />
           {isLoading ?(
             <Preloader />)
           : (
@@ -39,7 +40,7 @@ function Movies({
                 : 'movies__message_type_disabled'}`}>
                   По вашему запросу ничего не найденно.
               </p>
-              <MoviesCardList movies={movies} initialMoviesCard={initialMoviesCard} isMoviesPage={true}/>
+              <MoviesCardList movies={movies} initialMoviesCard={initialMoviesCard} isMoviesPage={isMoviesPage}/>
                 <button className={
                   movies.length <= 7 || initialMoviesCard >= movies.length
                      ? "movies__button_type_hidden"

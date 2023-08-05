@@ -2,7 +2,7 @@ import React from 'react';
 import './SearchForm.css';
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 
-function SearchForm({handleSearchMovie, onChange, checked}) {
+function SearchForm({handleSearchMovie, onChange, checked, isMoviesPage, handleSearchSavedMovie}) {
   const [keyword, setKeyword] = React.useState('');
   const [isValid, setIsValid] = React.useState(false);
   const [errorText, setErrorText] = React.useState('');
@@ -16,7 +16,11 @@ function SearchForm({handleSearchMovie, onChange, checked}) {
     evt.preventDefault()
     if (keyword) {
       console.log(keyword)
-      handleSearchMovie(keyword);
+      if (isMoviesPage) {
+        handleSearchMovie(keyword);
+      } else {
+        handleSearchSavedMovie(keyword);
+      }
    } else {
       return setErrorText('Нужно ввести ключевое слово')
    }
@@ -26,21 +30,21 @@ function SearchForm({handleSearchMovie, onChange, checked}) {
     <form className="search-form" onSubmit={handleSubmit} noValidate>
       <div className="search-form__container">
         <div className="search-form__icon"/>
-        <input 
-          type="text" 
-          required 
-          className="search-form__input" 
-          placeholder="Фильм" 
-          name="movie"
-          id="movie"
-          minLength="2"
-          maxLength="50"
-          onChange={handleChangeKeyword}
-          value={keyword || ''} />
-        <button
-          type="submit"
-          className="search-form__submit button-hover"
-          name="searchButton" />
+          <input 
+            type="text" 
+            required 
+            className="search-form__input" 
+            placeholder="Фильм" 
+            name="movie"
+            id="movie"
+            minLength="2"
+            maxLength="50"
+            onChange={handleChangeKeyword}
+            value={keyword || ''} />
+          <button
+            type="submit"
+            className="search-form__submit button-hover"
+            name="searchButton" />
       </div>
       <span className='search-form__error'>{!isValid && errorText}</span>
       <FilterCheckbox onChange={onChange} checked={checked} />

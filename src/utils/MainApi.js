@@ -79,6 +79,18 @@ class MainApi {
     })
     .then(this._handleReturnPromise)
   }
+
+  getSavedMovies() {
+    const token = localStorage.getItem('jwt');
+    return fetch(`${this._baseUrl}/movies`, {
+      method: 'GET',
+      headers: {
+        authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      }
+    })
+    .then(this._handleReturnPromise)
+  }
 }
 
 export const mainApi = new MainApi({
