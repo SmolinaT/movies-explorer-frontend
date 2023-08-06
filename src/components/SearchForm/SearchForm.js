@@ -15,7 +15,6 @@ function SearchForm({handleSearchMovie, onChange, checked, isMoviesPage, handleS
   function handleSubmit(evt) {
     evt.preventDefault()
     if (keyword) {
-      console.log(keyword)
       if (isMoviesPage) {
         handleSearchMovie(keyword);
       } else {

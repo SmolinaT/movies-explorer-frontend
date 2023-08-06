@@ -213,6 +213,8 @@ function handleMoreButtonClick() {
 }
 
 //Сохраненные фильмы
+
+//Поиск сохраненных фильмов в зависимости от продолжительности
 function selectSavedFilmDuration(keyword) {
   const serchSaveMovies = findMovie(savedMovie, keyword);
   const serchSaveShotMovies = findShortMovie(serchSaveMovies);
@@ -223,6 +225,7 @@ function selectSavedFilmDuration(keyword) {
   }
 }
 
+////Поиск сохраненных фильмов по ключевому слову
 function handleSearchSavedMovie(keyword) {
   const serchSaveMovies = findMovie(savedMovie, keyword);
 
@@ -235,6 +238,34 @@ function handleSearchSavedMovie(keyword) {
   } else {
     setIsNotFound(false);
   }
+}
+
+//сохранение фильма при нажатии на иконку
+function handleAddSavedMovies(movie) {
+  mainApi.addSavedMovies(movie)
+  .then((newMovie) => {
+    setSavedMovie([newMovie, ...savedMovie])
+})
+.catch((err) => {
+  console.log(err);
+})
+}
+
+//проверка наличия лайка на фильме
+function isSaveMovie(movie) {
+  return savedMovie.some(item => item.movieId === movie.id && item.owner === currentUser._id)
+}
+
+//удаление карточки
+function handleMovieDelete(movie) {
+    mainApi.deleteMovie(movie._id)
+    .then(() => {
+      setSavedMovie(() => savedMovie.filter(c => c._id !== movie._id));
+      setFoundSavedMovies(() => savedMovie.filter(c => c._id !== movie._id))
+    })
+    .catch((err) => {
+      console.log(err);
+    })
 }
 
   return (
@@ -265,7 +296,10 @@ function handleSearchSavedMovie(keyword) {
               checked={selectedCheckbox}
               onClick={handleMoreButtonClick}
               initialMoviesCard={initialMoviesCard}
-              isMoviesPage={true}/>
+              isMoviesPage={true}
+              onSave={handleAddSavedMovies}
+              isSaveMovie={isSaveMovie}
+              onDeleteMovie={handleMovieDelete} />
           } />
           <Route path="/profile" element={
             <ProtectedRouteElement 
@@ -287,7 +321,9 @@ function handleSearchSavedMovie(keyword) {
             isServerError={isServerError}
             isNotFound={isNotFound}
             isLoading={isLoading}
-            isMoviesPage={false} />
+            isMoviesPage={false}
+            onDeleteMovie={handleMovieDelete}
+            isSaveMovie={isSaveMovie} />
           } />
           <Route path="*" element={<PageNotFound />} />
         </Routes>

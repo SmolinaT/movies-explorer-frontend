@@ -7,7 +7,7 @@ import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import Footer from '../Footer/Footer';
 import Preloader from '../Preloader/Preloader';
 
-function SavedMovies({savedMovies, handleSearchSavedMovie, isServerError, isNotFound, isLoading, isMoviesPage}) {
+function SavedMovies({savedMovies, handleSearchSavedMovie, isServerError, isNotFound, isLoading, isMoviesPage, onDeleteMovie, isSaveMovie}) {
   return (
     <>
       <Header>
@@ -30,7 +30,7 @@ function SavedMovies({savedMovies, handleSearchSavedMovie, isServerError, isNotF
                 : 'movies-save__message_type_disabled'}`}>
                   По вашему запросу ничего не найденно.
               </p>
-              <MoviesCardList savedMovies={savedMovies} isMoviesPage={isMoviesPage} />
+              <MoviesCardList savedMovies={savedMovies} isMoviesPage={isMoviesPage} onDeleteMovie={onDeleteMovie} isSaveMovie={isSaveMovie} />
             </>
           )}
         </div>

@@ -91,6 +91,44 @@ class MainApi {
     })
     .then(this._handleReturnPromise)
   }
+
+  addSavedMovies(data) {
+    console.log(data.id)
+    const token = localStorage.getItem('jwt');
+    return fetch(`${this._baseUrl}/movies`, {
+      method: 'POST',
+      headers: {
+        authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        country: data.country,
+        director: data.director,
+        duration: data.duration,
+        year: data.year,
+        description: data.description,
+        image: `https://api.nomoreparties.co${data.image.url}`,
+        trailerLink: data.trailerLink,
+        nameRU: data.nameRU || ' ',
+        nameEN: data.nameEN || ' ',
+        thumbnail: `https://api.nomoreparties.co${data.image.formats.thumbnail.url}`,
+        movieId: data.id
+      })
+    })
+    .then(this._handleReturnPromise)
+  }
+
+  deleteMovie(id) {
+    const token = localStorage.getItem('jwt');
+    return fetch(`${this._baseUrl}/movies/${id}`, {
+      method: 'DELETE',
+      headers: {
+        authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      },
+    })
+    .then(this._handleReturnPromise)
+  }
 }
 
 export const mainApi = new MainApi({

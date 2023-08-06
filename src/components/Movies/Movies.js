@@ -17,7 +17,10 @@ function Movies({
   checked,
   onClick,
   initialMoviesCard,
-  isMoviesPage }) {
+  isMoviesPage,
+  onSave,
+  isSaveMovie,
+  onDeleteMovie }) {
   return (
     <>
       <Header>
@@ -40,7 +43,13 @@ function Movies({
                 : 'movies__message_type_disabled'}`}>
                   По вашему запросу ничего не найденно.
               </p>
-              <MoviesCardList movies={movies} initialMoviesCard={initialMoviesCard} isMoviesPage={isMoviesPage}/>
+              <MoviesCardList
+                movies={movies}
+                initialMoviesCard={initialMoviesCard}
+                isMoviesPage={isMoviesPage}
+                onSave={onSave}
+                isSaveMovie={isSaveMovie}
+                onDeleteMovie={onDeleteMovie} />
                 <button className={
                   movies.length <= 7 || initialMoviesCard >= movies.length
                      ? "movies__button_type_hidden"
