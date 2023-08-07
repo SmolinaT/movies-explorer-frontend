@@ -23,6 +23,7 @@ function App() {
   const [foundMovies, setFoundMovies] = React.useState([]);
   const [movies, setMovies] = React.useState([]);
   const [selectedCheckbox, setSelectedCheckbox] = React.useState(false);
+  const [keyword, setKeyword] = React.useState('')
   const [isNotFound, setIsNotFound] = React.useState(false);
   const [initialMovies, setInitialMovies] = React.useState([]);
 
@@ -35,7 +36,6 @@ function App() {
   const [moreMoviesCard, setMoreMoviesCard] = React.useState({});
 
   const [savedMovie, setSavedMovie] = React.useState([]);
-  const [foundSavedMovies, setFoundSavedMovies] = React.useState([]);
 
   React.useEffect(() => {
     if(loggIn) {
@@ -44,8 +44,7 @@ function App() {
         setCurrentUser(me);
         localStorage.setItem("movie", JSON.stringify(movie));
         setMovies(JSON.parse(localStorage.getItem("movie")));
-        localStorage.setItem("savedMovie", JSON.stringify(savedMovie));
-        setSavedMovie(JSON.parse(localStorage.getItem("savedMovie")));
+        setSavedMovie(savedMovie);
       })
       .catch((err) => {
         console.log(err);
@@ -133,140 +132,167 @@ function App() {
     });
   }
 
+  //выход из аккаунта
   function handleLogOut() {
     setLoggIn(false);
     localStorage.clear();
     navigate('/');
+    setInitialMovies([]);
+    setFoundMovies([]);
+    setSelectedCheckbox(false);
+    setSavedMovie([]);
   }
 
   //Фильмы:
 
-//Фильтрование фильмов по ключевому слову
-function findMovie(movies, keyword) {
-  return movies.filter((movie) => {
-    return movie.nameRU.toLowerCase().includes(keyword.toLowerCase()) 
-    || movie.nameEN.toLowerCase().includes(keyword.toLowerCase())
+  //Фильтрование фильмов по ключевому слову
+  function findMovie(movies, keyword) {
+    return movies.filter((movie) => {
+      return movie.nameRU.toLowerCase().includes(keyword.toLowerCase()) 
+      || movie.nameEN.toLowerCase().includes(keyword.toLowerCase())
+    })
+  }
+
+  //Фильтрование короткометражек
+  function findShortMovie(movies) {
+    return movies.filter((movie) => movie.duration <= 40);
+  }
+
+  //console.log(movies)
+
+  //Поиск фильмов в зависимости от продолжительности
+  function selectFilmDuration(keyword) {
+    const serchMovies = findMovie(movies, keyword);
+    const serchShotMovies = findShortMovie(serchMovies);
+    if (!selectedCheckbox) {
+      setFoundMovies(serchMovies);
+    } else {
+      setFoundMovies(serchShotMovies)
+    }
+  }
+
+  //Поиск фильмов по ключевому слову
+  function handleSearchMovie(keyword) {
+    const serchMovies = findMovie(movies, keyword);
+    setIsLoading(true);
+    setTimeout(() => setIsLoading(false), 1000);
+    selectFilmDuration(keyword);
+    setInitialMovies(serchMovies);
+    const dataToSave = { serchMovies, keyword, selectedCheckbox }
+    localStorage.setItem('movieData', JSON.stringify(dataToSave))
+    if (serchMovies.length === 0) {
+      setIsNotFound(true);
+    } else {
+      setIsNotFound(false);
+    }
+  }
+
+  React.useEffect(() => {
+    const savedData = localStorage.getItem('movieData')
+    if (savedData) {
+      const { findMovie, keyword, selectedCheckbox } = JSON.parse(savedData)
+      setMovies(findMovie);
+      setKeyword(keyword);
+      setSelectedCheckbox(selectedCheckbox);
+    }
+  }, [])
+
+  //Изменение состояния чекбокса
+  function handleChangeCheckbox() {
+    setSelectedCheckbox(!selectedCheckbox);
+    if (!selectedCheckbox) {
+      setFoundMovies(findShortMovie(initialMovies));
+    } else {
+      setFoundMovies(initialMovies);
+    }
+    localStorage.setItem('selectedCheckbox', !selectedCheckbox);
+  }
+
+  //Отслеживание добавления карточек, взависимости от ширины экрана
+  React.useEffect(() => {
+    if (windowWidth >= 1280) {
+      setInitialMoviesCard(12);
+       setMoreMoviesCard(4);
+    }
+    if (windowWidth < 1150 && windowWidth >= 560) {
+      setInitialMoviesCard(8);
+       setMoreMoviesCard(2);
+    }
+    if (windowWidth < 480) {
+      setInitialMoviesCard(5);
+       setMoreMoviesCard(2);
+    }
+  }, [windowWidth])
+
+  //Добавление карточек кнопкой Еще
+  function handleMoreButtonClick() {
+    setInitialMoviesCard(initialMoviesCard + moreMoviesCard);
+  }
+
+  //Сохраненные фильмы
+
+  //Поиск сохраненных фильмов в зависимости от продолжительности
+  function selectSavedFilmDuration(keyword) {
+    const serchSaveMovies = findMovie(savedMovie, keyword);
+    const serchSaveShotMovies = findShortMovie(serchSaveMovies);
+    if (!selectedCheckbox) {
+      setSavedMovie(serchSaveMovies);
+    } else {
+      setSavedMovie(serchSaveShotMovies)
+    }
+  }
+
+  //Поиск сохраненных фильмов по ключевому слову
+  function handleSearchSavedMovie(keyword) {
+    const serchSaveMovies = findMovie(savedMovie, keyword);
+
+    setIsLoading(true);
+    setTimeout(() => setIsLoading(false), 1000);
+    selectSavedFilmDuration(keyword);
+    setInitialMovies(serchSaveMovies)
+    if (serchSaveMovies.length === 0) {
+      setIsNotFound(true);
+    } else {
+      setIsNotFound(false);
+    }
+  }
+
+  //сохранение фильма при нажатии на иконку
+  function handleAddSavedMovies(movie) {
+    mainApi.addSavedMovies(movie)
+    .then((newMovie) => {
+      setSavedMovie([newMovie, ...savedMovie])
   })
-}
-
-//Фильтрование короткометражек
-function findShortMovie(movies) {
-  return movies.filter((movie) => movie.duration <= 40);
-}
-
-//Поиск фильмов в зависимости от продолжительности
-function selectFilmDuration(keyword) {
-  const serchMovies = findMovie(movies, keyword);
-  const serchShotMovies = findShortMovie(serchMovies);
-  if (!selectedCheckbox) {
-    setFoundMovies(serchMovies);
-  } else {
-    setFoundMovies(serchShotMovies)
+  .catch((err) => {
+    console.log(err);
+  })
   }
-}
 
-//Поиск фильмов по ключевому слову
-function handleSearchMovie(keyword) {
-  const serchMovies = findMovie(movies, keyword);
-
-  setIsLoading(true);
-  setTimeout(() => setIsLoading(false), 1000);
-  selectFilmDuration(keyword);
-  setInitialMovies(serchMovies);
-  if (serchMovies.length === 0) {
-    setIsNotFound(true);
-  } else {
-    setIsNotFound(false);
+  //проверка сохранен ли фильм
+  function isSaveMovie(movie) {
+    return savedMovie.some(item => item.movieId === movie.id)
   }
-}
 
-//Изменение состояния чекбокса
-function handleChangeCheckbox() {
-  setSelectedCheckbox(!selectedCheckbox);
-  if (!selectedCheckbox) {
-    setFoundMovies(findShortMovie(initialMovies));
-  } else {
-    setFoundMovies(initialMovies);
-  }
-  localStorage.setItem('selectedCheckbox', !selectedCheckbox);
-}
-
-//Отслеживание добавления карточек, взависимости от ширины экрана
-React.useEffect(() => {
-  if (windowWidth >= 1280) {
-    setInitialMoviesCard(12);
-     setMoreMoviesCard(4);
-  }
-  if (windowWidth < 1150 && windowWidth >= 560) {
-    setInitialMoviesCard(8);
-     setMoreMoviesCard(2);
-  }
-  if (windowWidth < 480) {
-    setInitialMoviesCard(5);
-     setMoreMoviesCard(2);
-  }
-}, [windowWidth])
-
-//Добавление карточек кнопкой Еще
-function handleMoreButtonClick() {
-  setInitialMoviesCard(initialMoviesCard + moreMoviesCard);
-}
-
-//Сохраненные фильмы
-
-//Поиск сохраненных фильмов в зависимости от продолжительности
-function selectSavedFilmDuration(keyword) {
-  const serchSaveMovies = findMovie(savedMovie, keyword);
-  const serchSaveShotMovies = findShortMovie(serchSaveMovies);
-  if (!selectedCheckbox) {
-    setFoundSavedMovies(serchSaveMovies);
-  } else {
-    setFoundSavedMovies(serchSaveShotMovies)
-  }
-}
-
-////Поиск сохраненных фильмов по ключевому слову
-function handleSearchSavedMovie(keyword) {
-  const serchSaveMovies = findMovie(savedMovie, keyword);
-
-  setIsLoading(true);
-  setTimeout(() => setIsLoading(false), 1000);
-  selectSavedFilmDuration(keyword);
-  setInitialMovies(serchSaveMovies)
-  if (serchSaveMovies.length === 0) {
-    setIsNotFound(true);
-  } else {
-    setIsNotFound(false);
-  }
-}
-
-//сохранение фильма при нажатии на иконку
-function handleAddSavedMovies(movie) {
-  mainApi.addSavedMovies(movie)
-  .then((newMovie) => {
-    setSavedMovie([newMovie, ...savedMovie])
-})
-.catch((err) => {
-  console.log(err);
-})
-}
-
-//проверка наличия лайка на фильме
-function isSaveMovie(movie) {
-  return savedMovie.some(item => item.movieId === movie.id && item.owner === currentUser._id)
-}
-
-//удаление карточки
-function handleMovieDelete(movie) {
-    mainApi.deleteMovie(movie._id)
-    .then(() => {
-      setSavedMovie(() => savedMovie.filter(c => c._id !== movie._id));
-      setFoundSavedMovies(() => savedMovie.filter(c => c._id !== movie._id))
+  //удаление карточки
+  function handleMovieDelete(movie) {
+    const checkMovies = savedMovie.find((item) => {
+      return item.movieId === movie.id || movie.movieId
     })
-    .catch((err) => {
-      console.log(err);
-    })
-}
+
+    if(checkMovies) {
+      mainApi.deleteMovie(checkMovies._id)
+      .then(() => {
+        mainApi.getSavedMovies()
+        .then((movies) => {
+          setSavedMovie(movies)
+        })
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+    } 
+    //console.log(id)
+  }
 
   return (
     <div className='page'>
@@ -316,7 +342,7 @@ function handleMovieDelete(movie) {
             <ProtectedRouteElement
             element={SavedMovies}
             loggIn={loggIn}
-            savedMovies={foundSavedMovies}
+            savedMovies={savedMovie}
             handleSearchSavedMovie={handleSearchSavedMovie}
             isServerError={isServerError}
             isNotFound={isNotFound}

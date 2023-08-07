@@ -18,10 +18,12 @@ function MoviesCard({isMoviesPage, movie, onSave, isSaveMovie, onDeleteMovie, is
   }
 
   function handleSave() {
+    //console.log(movie.movieId)
     onSave(movie)
   }
 
   function handleDelete() {
+      //console.log(movie)
       onDeleteMovie(movie)
   }
 

@@ -93,7 +93,7 @@ class MainApi {
   }
 
   addSavedMovies(data) {
-    console.log(data.id)
+    //console.log(data.id)
     const token = localStorage.getItem('jwt');
     return fetch(`${this._baseUrl}/movies`, {
       method: 'POST',

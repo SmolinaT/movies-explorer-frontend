@@ -18,7 +18,7 @@ function MoviesCardList({ movies, initialMoviesCard, onSave, isMoviesPage, saved
       )
       : (
         savedMovies.map((movie) => (
-          <MoviesCard key={movie.movieId || movie.id}
+          <MoviesCard key={movie.id || movie._id}
             movie={movie}
             isMoviesPage={isMoviesPage}
             onDeleteMovie={onDeleteMovie}
