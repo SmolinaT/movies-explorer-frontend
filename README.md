@@ -15,3 +15,8 @@
 ## Ссылки на макет в Figma
 
 https://disk.yandex.ru/d/qCorOS5OILHEZg
+
+## Ссылки на проект
+
+Frontend https://smolinadip.nomoreparties.sbs
+
