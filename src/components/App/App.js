@@ -175,6 +175,7 @@ function App() {
   //Поиск фильмов по ключевому слову
   function handleSearchMovie(keyword) {
     const serchMovies = findMovie(movies, keyword);
+    const serchShotMovies = findShortMovie(serchMovies);
     setIsLoading(true);
     setTimeout(() => setIsLoading(false), 1000);
     selectFilmDuration(keyword);
@@ -182,6 +183,7 @@ function App() {
     localStorage.setItem('searchKeyword', keyword);
     localStorage.setItem('selectedCheckbox', selectedCheckbox);
     localStorage.setItem('serchMovies', JSON.stringify(serchMovies));
+    localStorage.setItem('serchShotMovies', JSON.stringify(serchShotMovies));
     if (serchMovies.length === 0) {
       setIsNotFound(true);
     } else {
@@ -191,7 +193,11 @@ function App() {
 
   React.useEffect(() => {
     setSelectedCheckbox(localStorage.getItem('selectedCheckbox' || '') === 'true');
-    setFoundMovies(JSON.parse(localStorage.getItem('serchMovies')));
+    if (localStorage.getItem('selectedCheckbox' || '') === 'true') {
+      setFoundMovies(JSON.parse(localStorage.getItem('serchShotMovies')))
+    } else {
+      setFoundMovies(JSON.parse(localStorage.getItem('serchMovies')));
+    }
   }, [])
 
   //Изменение состояния чекбокса
