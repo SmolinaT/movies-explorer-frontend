@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import './PageNotFound.css';
 
-function PageNotFound() {
+function PageNotFound({loggIn}) {
   const navigate = useNavigate();
 
   return (

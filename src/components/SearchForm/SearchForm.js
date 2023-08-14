@@ -2,10 +2,16 @@ import React from 'react';
 import './SearchForm.css';
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 
-function SearchForm({handleSearchMovie, onChange, checked, isMoviesPage, handleSearchSavedMovie}) {
+function SearchForm({handleSearchMovie, onChange, checked, isMoviesPage, handleSearchSavedMovie, onSaveChange, checkedSave}) {
   const [keyword, setKeyword] = React.useState('');
   const [isValid, setIsValid] = React.useState(false);
   const [errorText, setErrorText] = React.useState('');
+
+  React.useEffect(() => {
+    if(isMoviesPage) {
+      setKeyword(localStorage.getItem('searchKeyword' || ''));
+    }
+  }, [])
 
   function handleChangeKeyword(evt) {
     setKeyword(evt.target.value);
@@ -46,7 +52,13 @@ function SearchForm({handleSearchMovie, onChange, checked, isMoviesPage, handleS
             name="searchButton" />
       </div>
       <span className='search-form__error'>{!isValid && errorText}</span>
-      <FilterCheckbox onChange={onChange} checked={checked} />
+      { isMoviesPage ? (
+        <FilterCheckbox onChange={onChange} checked={checked} />
+      )
+      : (
+        <FilterCheckbox onChange={onSaveChange} checked={checkedSave} />
+      )  
+      }
     </form>
   );
 }

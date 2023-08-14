@@ -23,7 +23,6 @@ function App() {
   const [foundMovies, setFoundMovies] = React.useState([]);
   const [movies, setMovies] = React.useState([]);
   const [selectedCheckbox, setSelectedCheckbox] = React.useState(false);
-  const [keyword, setKeyword] = React.useState('')
   const [isNotFound, setIsNotFound] = React.useState(false);
   const [initialMovies, setInitialMovies] = React.useState([]);
 
@@ -36,6 +35,8 @@ function App() {
   const [moreMoviesCard, setMoreMoviesCard] = React.useState({});
 
   const [savedMovie, setSavedMovie] = React.useState([]);
+  const [selectedSaveCheckbox, setSelecteSavedCheckbox] = React.useState(false);
+  const [saveAllMovies, setSaveAllMovies] = React.useState([]);
 
   React.useEffect(() => {
     if(loggIn) {
@@ -178,8 +179,9 @@ function App() {
     setTimeout(() => setIsLoading(false), 1000);
     selectFilmDuration(keyword);
     setInitialMovies(serchMovies);
-    const dataToSave = { serchMovies, keyword, selectedCheckbox }
-    localStorage.setItem('movieData', JSON.stringify(dataToSave))
+    localStorage.setItem('searchKeyword', keyword);
+    localStorage.setItem('selectedCheckbox', selectedCheckbox);
+    localStorage.setItem('serchMovies', JSON.stringify(serchMovies));
     if (serchMovies.length === 0) {
       setIsNotFound(true);
     } else {
@@ -188,21 +190,20 @@ function App() {
   }
 
   React.useEffect(() => {
-    const savedData = localStorage.getItem('movieData')
-    if (savedData) {
-      const { findMovie, keyword, selectedCheckbox } = JSON.parse(savedData)
-      setMovies(findMovie);
-      setKeyword(keyword);
-      setSelectedCheckbox(selectedCheckbox);
-    }
+    setSelectedCheckbox(localStorage.getItem('selectedCheckbox' || '') === 'true');
+    setFoundMovies(JSON.parse(localStorage.getItem('serchMovies')));
   }, [])
 
   //Изменение состояния чекбокса
   function handleChangeCheckbox() {
     setSelectedCheckbox(!selectedCheckbox);
     if (!selectedCheckbox) {
-      setFoundMovies(findShortMovie(initialMovies));
+      if(findShortMovie(initialMovies).length === 0) {
+        setIsNotFound(true);
+      }
+        setFoundMovies(findShortMovie(initialMovies));
     } else {
+      setIsNotFound(false);
       setFoundMovies(initialMovies);
     }
     localStorage.setItem('selectedCheckbox', !selectedCheckbox);
@@ -235,7 +236,7 @@ function App() {
   function selectSavedFilmDuration(keyword) {
     const serchSaveMovies = findMovie(savedMovie, keyword);
     const serchSaveShotMovies = findShortMovie(serchSaveMovies);
-    if (!selectedCheckbox) {
+    if (!selectedSaveCheckbox) {
       setSavedMovie(serchSaveMovies);
     } else {
       setSavedMovie(serchSaveShotMovies)
@@ -249,13 +250,30 @@ function App() {
     setIsLoading(true);
     setTimeout(() => setIsLoading(false), 1000);
     selectSavedFilmDuration(keyword);
-    setInitialMovies(serchSaveMovies)
     if (serchSaveMovies.length === 0) {
       setIsNotFound(true);
     } else {
       setIsNotFound(false);
     }
   }
+
+    //Изменение состояния чекбокса сохраненных фильмов
+    function handleChangeSaveCheckbox() {
+      setSaveAllMovies(savedMovie);
+      setSelectedCheckbox(!selectedCheckbox);
+      if (!selectedSaveCheckbox) {
+        setSelecteSavedCheckbox(true);
+        if(findShortMovie(savedMovie).length === 0) {
+          setIsNotFound(true);
+        }
+        setSavedMovie(findShortMovie(savedMovie))
+      } else {
+        setSelecteSavedCheckbox(false);
+        setIsNotFound(false);
+        setSavedMovie(saveAllMovies);
+      }
+      localStorage.setItem('selectedCheckbox', !selectedSaveCheckbox);
+    }
 
   //сохранение фильма при нажатии на иконку
   function handleAddSavedMovies(movie) {
@@ -349,7 +367,9 @@ function App() {
             isLoading={isLoading}
             isMoviesPage={false}
             onDeleteMovie={handleMovieDelete}
-            isSaveMovie={isSaveMovie} />
+            isSaveMovie={isSaveMovie}
+            onSaveChange={handleChangeSaveCheckbox}
+            checkedSave={selectedSaveCheckbox} />
           } />
           <Route path="*" element={<PageNotFound />} />
         </Routes>

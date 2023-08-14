@@ -7,7 +7,17 @@ import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import Footer from '../Footer/Footer';
 import Preloader from '../Preloader/Preloader';
 
-function SavedMovies({savedMovies, handleSearchSavedMovie, isServerError, isNotFound, isLoading, isMoviesPage, onDeleteMovie, isSaveMovie}) {
+function SavedMovies({
+  savedMovies,
+  handleSearchSavedMovie,
+  isServerError,
+  isNotFound,
+  isLoading,
+  isMoviesPage,
+  onDeleteMovie,
+  isSaveMovie,
+  onSaveChange,
+  checkedSave }) {
   return (
     <>
       <Header>
@@ -15,7 +25,7 @@ function SavedMovies({savedMovies, handleSearchSavedMovie, isServerError, isNotF
       </Header>
       <main className="movies-save">
         <div className="movies-save__container">
-          <SearchForm handleSearchSavedMovie={handleSearchSavedMovie} isMoviesPage={isMoviesPage} />
+          <SearchForm handleSearchSavedMovie={handleSearchSavedMovie} isMoviesPage={isMoviesPage} onSaveChange={onSaveChange} checkedSave={checkedSave} />
           {isLoading ?(
             <Preloader />)
           : (
