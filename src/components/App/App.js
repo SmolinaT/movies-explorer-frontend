@@ -191,7 +191,7 @@ function App() {
 
   React.useEffect(() => {
     setSelectedCheckbox(localStorage.getItem('selectedCheckbox' || '') === 'true');
-      //setFoundMovies(JSON.parse(localStorage.getItem('serchMovies')));
+      setFoundMovies(JSON.parse(localStorage.getItem('serchMovies')));
   }, [])
 
   //Изменение состояния чекбокса
