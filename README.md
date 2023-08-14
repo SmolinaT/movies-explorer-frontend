@@ -16,7 +16,11 @@
 
 https://disk.yandex.ru/d/qCorOS5OILHEZg
 
-## Ссылки на проект
+## Ссылка на проект
 
 Frontend https://smolinadip.nomoreparties.sbs
+
+## Ссылка на пул реквест
+
+https://github.com/SmolinaT/movies-explorer-frontend/pull/2
 
