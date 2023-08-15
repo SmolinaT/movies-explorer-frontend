@@ -181,7 +181,6 @@ function App() {
     setInitialMovies(serchMovies);
     localStorage.setItem('searchKeyword', keyword);
     localStorage.setItem('selectedCheckbox', selectedCheckbox);
-    localStorage.setItem('serchMovies', JSON.stringify(serchMovies));
     if (serchMovies.length === 0) {
       setIsNotFound(true);
     } else {
@@ -191,7 +190,6 @@ function App() {
 
   React.useEffect(() => {
     setSelectedCheckbox(localStorage.getItem('selectedCheckbox' || '') === 'true');
-      setFoundMovies(JSON.parse(localStorage.getItem('serchMovies')));
   }, [])
 
   //Изменение состояния чекбокса
