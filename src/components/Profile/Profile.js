@@ -5,7 +5,7 @@ import NavLogin from "../NavLogin/NavLogin";
 import useValidateForm from "../../hooks/useValidateForm";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 
-function Profile ({ onSignOut, isSending, errorMessage, onUpdateUser, isBtnSaveVisible, setIsBtnSaveVisible }) {
+function Profile ({ onSignOut, isSending, errorMessage, onUpdateUser, isBtnSaveVisible, setIsBtnSaveVisible, okMessage }) {
   const {
     values,
     setValues,
@@ -31,14 +31,11 @@ function Profile ({ onSignOut, isSending, errorMessage, onUpdateUser, isBtnSaveV
     console.log(values);
     console.log(currentUser)
     e.preventDefault();
-    if(!isValid) {
-      return
-    }
       onUpdateUser({
         name: values.name,
         email: values.email
       });
-      setIsSuccess(true);
+      setIsSuccess(true)
     resetForm();
   }
 
@@ -106,18 +103,16 @@ function Profile ({ onSignOut, isSending, errorMessage, onUpdateUser, isBtnSaveV
             </>
           ) : (
             <div className="profile__button-container">
-              {isSuccess ?(
-                 <p className="profile__error profile__error_status_ok">Изменение данных прошло успешно</p>
-              ) : (
-                <span className="profile__error profile__error_status_bad">{errorMessage}</span>
-              )}
+                {!isSuccess && <p className="profile__error profile__error_status_ok">{okMessage}</p>}
+                {errors && <span className="profile__error profile__error_status_bad">{errorMessage}</span>}
               <button
                 type="submit"
                 className={`profile__submit ${blockedButton
                   ? 'profile__submit_type_disabled' 
                   : 'button-hover'}`}
                 name="saveProfileButton"
-                onClick={handleChangesSave}>
+                onClick={handleChangesSave}
+                disabled={blockedButton}>
                   {isSending ?'Сохранение..' : 'Сохранить'}
               </button>
           </div>

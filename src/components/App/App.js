@@ -16,6 +16,7 @@ import { useResize } from '../../hooks/useResize';
 function App() {
   const [loggIn, setLoggIn] = React.useState(false);
   const [errorMessage, setErrorMessage] = React.useState('');
+  const [okMessage, setOkMessage] = React.useState('');
   const [isUserSending, setIsUserSending] = React.useState(false);
   const [isBtnSaveVisible, setIsBtnSaveVisible] = React.useState(false);
   const [isLoading, setIsLoading] = React.useState(false);
@@ -62,7 +63,7 @@ function App() {
       .then((res) => {
         setCurrentUser(res.data);
         setIsBtnSaveVisible(false);
-        localStorage.setItem('currentUser', JSON.stringify(res.data));
+        setOkMessage("Изменение данных прошло успешно");
       })
       .catch((err) => {
         console.log(err);
@@ -74,7 +75,7 @@ function App() {
       })
       .finally(() => {
         setIsUserSending(false);
-        
+        setTimeout(() => setOkMessage(''), 2000);
       });
   }
 
@@ -198,17 +199,15 @@ function App() {
 
   React.useEffect(() => {
     setSelectedCheckbox(localStorage.getItem('selectedCheckbox' || '') === 'true');
-      const serchMovies = JSON.parse(
-        localStorage.getItem('serchMovies')
-      );
-      console.log(serchMovies)
-      setInitialMovies(serchMovies);
-      if (localStorage.getItem('selectedCheckbox') === 'true') {
-        setFoundMovies(findShortMovie(serchMovies));
-      } else {
-        setFoundMovies(serchMovies);
-      }
+    const serchMovies = JSON.parse(localStorage.getItem('serchMovies'));
+    setInitialMovies(serchMovies);
+    if (selectedCheckbox) {
+      setFoundMovies(findShortMovie(serchMovies));
+    } else {
+      setFoundMovies(serchMovies);
+    }
   }, [])
+
 
   //Изменение состояния чекбокса
   function handleChangeCheckbox() {
@@ -360,7 +359,11 @@ function App() {
               isMoviesPage={true}
               onSave={handleAddSavedMovies}
               isSaveMovie={isSaveMovie}
-              onDeleteMovie={handleMovieDelete} />
+              onDeleteMovie={handleMovieDelete}
+              setSelectedCheckbox={setSelectedCheckbox}
+              setInitialMovies={setInitialMovies}
+              setFoundMovies={setFoundMovies}
+              findShortMovie={findShortMovie} />
           } />
           <Route path="/profile" element={
             <ProtectedRouteElement 
@@ -371,7 +374,8 @@ function App() {
               errorMessage={errorMessage}
               onUpdateUser={handleUpdateUser}
               isBtnSaveVisible={isBtnSaveVisible}
-              setIsBtnSaveVisible={setIsBtnSaveVisible} />
+              setIsBtnSaveVisible={setIsBtnSaveVisible}
+              okMessage={okMessage} />
           } />
           <Route path="/saved-movies" element={
             <ProtectedRouteElement
