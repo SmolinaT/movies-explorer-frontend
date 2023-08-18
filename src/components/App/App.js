@@ -43,6 +43,7 @@ function App() {
       Promise.all([mainApi.getUserData(), moviesApi.getMovies(), mainApi.getSavedMovies()])
       .then(([me, movie, savedMovie]) => {
         setCurrentUser(me);
+        setIsLoading(true);
         localStorage.setItem("movie", JSON.stringify(movie));
         setMovies(JSON.parse(localStorage.getItem("movie")));
         setSavedMovie(savedMovie);
@@ -50,7 +51,8 @@ function App() {
       .catch((err) => {
         console.log(err);
         setIsServerError(true);
-      });
+      })
+      .finally(() => setIsLoading(false))
     }
   }, [loggIn])
 
@@ -70,7 +72,10 @@ function App() {
           setErrorMessage('При обновлении профиля произошла ошибка');
         }
       })
-      .finally(() => setIsUserSending(false));
+      .finally(() => {
+        setIsUserSending(false);
+        
+      });
   }
 
   React.useEffect(() => {
@@ -80,7 +85,7 @@ function App() {
         .then((res) => {
           if (res) {
             setLoggIn(true);
-            navigate("/movies");
+            navigate({replace: false});
           }
         })
         .catch((err) => {
@@ -114,7 +119,7 @@ function App() {
       if (res.token) {
         localStorage.setItem("jwt", res.token);
         setLoggIn(true);
-        navigate('/movies')
+        navigate('/movies', { replace: true })
       }
     })
     .catch((err) => {
@@ -175,21 +180,34 @@ function App() {
   //Поиск фильмов по ключевому слову
   function handleSearchMovie(keyword) {
     const serchMovies = findMovie(movies, keyword);
-    setIsLoading(true);
-    setTimeout(() => setIsLoading(false), 1000);
     selectFilmDuration(keyword);
     setInitialMovies(serchMovies);
+    setFoundMovies(
+      selectedCheckbox ? findShortMovie(serchMovies) : serchMovies
+      )
     localStorage.setItem('searchKeyword', keyword);
     localStorage.setItem('selectedCheckbox', selectedCheckbox);
+    localStorage.setItem('serchMovies', JSON.stringify(serchMovies));
     if (serchMovies.length === 0) {
       setIsNotFound(true);
     } else {
       setIsNotFound(false);
     }
   }
+  //console.log(foundMovies)
 
   React.useEffect(() => {
     setSelectedCheckbox(localStorage.getItem('selectedCheckbox' || '') === 'true');
+      const serchMovies = JSON.parse(
+        localStorage.getItem('serchMovies')
+      );
+      console.log(serchMovies)
+      setInitialMovies(serchMovies);
+      if (localStorage.getItem('selectedCheckbox') === 'true') {
+        setFoundMovies(findShortMovie(serchMovies));
+      } else {
+        setFoundMovies(serchMovies);
+      }
   }, [])
 
   //Изменение состояния чекбокса
@@ -211,15 +229,19 @@ function App() {
   React.useEffect(() => {
     if (windowWidth >= 1280) {
       setInitialMoviesCard(12);
-       setMoreMoviesCard(4);
+      setMoreMoviesCard(4);
     }
-    if (windowWidth < 1150 && windowWidth >= 560) {
+    if (windowWidth < 1280 && windowWidth > 1150) {
+      setInitialMoviesCard(12);
+      setMoreMoviesCard(4);
+    }
+    if (windowWidth <= 1150 && windowWidth > 560) {
       setInitialMoviesCard(8);
-       setMoreMoviesCard(2);
+      setMoreMoviesCard(2);
     }
-    if (windowWidth < 480) {
+    if (windowWidth <= 560) {
       setInitialMoviesCard(5);
-       setMoreMoviesCard(2);
+      setMoreMoviesCard(2);
     }
   }, [windowWidth])
 
@@ -244,9 +266,6 @@ function App() {
   //Поиск сохраненных фильмов по ключевому слову
   function handleSearchSavedMovie(keyword) {
     const serchSaveMovies = findMovie(savedMovie, keyword);
-
-    setIsLoading(true);
-    setTimeout(() => setIsLoading(false), 1000);
     selectSavedFilmDuration(keyword);
     if (serchSaveMovies.length === 0) {
       setIsNotFound(true);

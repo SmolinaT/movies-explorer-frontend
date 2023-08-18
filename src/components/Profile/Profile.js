@@ -20,18 +20,25 @@ function Profile ({ onSignOut, isSending, errorMessage, onUpdateUser, isBtnSaveV
   //const [isInputDisabled, setIsInputDisabled] = React.useState(true);
   const [isSuccess, setIsSuccess] = React.useState(false);
 
+  const blockedButton = (!isValid || (currentUser.name === values.name && currentUser.email === values.email));
+
   React.useEffect(() => {
     setValues(currentUser);
     setIsBtnSaveVisible(false);
   }, [currentUser, setValues, setIsBtnSaveVisible])
 
   function handleSubmit(e) {
+    console.log(values);
+    console.log(currentUser)
     e.preventDefault();
-
-    onUpdateUser({
-      name: values.name,
-      email: values.email
-    });
+    if(!isValid) {
+      return
+    }
+      onUpdateUser({
+        name: values.name,
+        email: values.email
+      });
+      setIsSuccess(true);
     resetForm();
   }
 
@@ -62,7 +69,7 @@ function Profile ({ onSignOut, isSending, errorMessage, onUpdateUser, isBtnSaveV
                 id="name"
                 minLength="1"
                 maxLength="20"
-                value={values.name || currentUser.name} 
+                value={values.name || ""} 
                 onChange={handleChange}
                 disabled={isBtnSaveVisible ? false : true} />
             </div>
@@ -76,7 +83,7 @@ function Profile ({ onSignOut, isSending, errorMessage, onUpdateUser, isBtnSaveV
                 id="email"
                 minLength="2"
                 maxLength="30"
-                value={values.email || currentUser.email} 
+                value={values.email || ""} 
                 onChange={handleChange}
                 disabled={isBtnSaveVisible ? false : true} />
             </div>
@@ -106,7 +113,7 @@ function Profile ({ onSignOut, isSending, errorMessage, onUpdateUser, isBtnSaveV
               )}
               <button
                 type="submit"
-                className={`profile__submit ${!isValid
+                className={`profile__submit ${blockedButton
                   ? 'profile__submit_type_disabled' 
                   : 'button-hover'}`}
                 name="saveProfileButton"
