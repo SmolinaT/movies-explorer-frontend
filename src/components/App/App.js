@@ -333,16 +333,28 @@ function App() {
       <CurrentUserContext.Provider value={currentUser}>
         <Routes>
           <Route path="/" element={ <Main loggIn={loggIn} /> } />
-          <Route path="/signup" element={
-            <Register 
-              onRegister={handleRegister}
-              errorMessage={errorMessage} />
-          } />
-          <Route path="/signin" element={
-            <Login 
-              onLogin={handleLogin}
-              errorMessage={errorMessage} />
-           } />
+          {loggIn ? (
+            <Route path="/signup" element={
+              <Main loggIn={loggIn} />
+            } />
+          ) : (
+            <Route path="/signup" element={
+              <Register 
+                onRegister={handleRegister}
+                errorMessage={errorMessage} />
+            } />
+          )}
+          {loggIn ? (
+            <Route path="/signin" element={
+              <Main loggIn={loggIn} />
+            } />
+          ) : (
+            <Route path="/signin" element={
+              <Login 
+                onLogin={handleLogin}
+                errorMessage={errorMessage} />
+            } />
+          )}
           <Route path="/movies" element={
             <ProtectedRouteElement
               element={Movies}
@@ -392,7 +404,7 @@ function App() {
             onSaveChange={handleChangeSaveCheckbox}
             checkedSave={selectedSaveCheckbox} />
           } />
-          <Route path="*" element={<PageNotFound />} />
+          <Route path="*" element={<PageNotFound loggIn={loggIn} />} />
         </Routes>
       </CurrentUserContext.Provider>
     </div>
