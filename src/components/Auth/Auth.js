@@ -35,7 +35,8 @@ function Auth ({
             minLength="2"
             maxLength="30"
             value={emailValue}
-            onChange={onChange} />
+            onChange={onChange}
+            pattern="[a-zA-Z0-9_.]+@[a-zA-Z0-9_]+\.{1,1}[a-z]{2,}" />
           <span className="auth__input-error">{emailError}</span>
           <label className="auth__name" htmlFor="password">Пароль</label>
           <input type="password" 
@@ -57,7 +58,8 @@ function Auth ({
             className={`auth__submit ${disabled
               ? 'auth__submit_type_disabled' 
               : 'button-hover'}`}
-            name="saveButton">
+            name="saveButton"
+            disabled={disabled}>
               {buttonText}
           </button>
         </div>

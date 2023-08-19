@@ -17,9 +17,6 @@ function Profile ({ onSignOut, isSending, errorMessage, onUpdateUser, isBtnSaveV
 
   const currentUser = React.useContext(CurrentUserContext);
 
-  //const [isInputDisabled, setIsInputDisabled] = React.useState(true);
-  const [isSuccess, setIsSuccess] = React.useState(false);
-
   const blockedButton = (!isValid || (currentUser.name === values.name && currentUser.email === values.email));
 
   React.useEffect(() => {
@@ -34,18 +31,14 @@ function Profile ({ onSignOut, isSending, errorMessage, onUpdateUser, isBtnSaveV
       onUpdateUser({
         name: values.name,
         email: values.email
-      });
-      setIsSuccess(true)
-    resetForm();
+      })
+      .then(()=> {
+        resetForm();
+      })
   }
 
   function handleUpdateProfile() {
     setIsBtnSaveVisible(true);
-    setIsSuccess(false);
-  }
-
-  function handleChangesSave() {
-    setIsSuccess(true)
   }
 
   return (
@@ -82,7 +75,8 @@ function Profile ({ onSignOut, isSending, errorMessage, onUpdateUser, isBtnSaveV
                 maxLength="30"
                 value={values.email || ""} 
                 onChange={handleChange}
-                disabled={isBtnSaveVisible ? false : true} />
+                disabled={isBtnSaveVisible ? false : true}
+                pattern="[a-zA-Z0-9_.]+@[a-zA-Z0-9_]+\.{1,1}[a-z]{2,}" />
             </div>
             <span className="profile__input-error">{errors.email || ''}</span>
           </div>
@@ -103,7 +97,7 @@ function Profile ({ onSignOut, isSending, errorMessage, onUpdateUser, isBtnSaveV
             </>
           ) : (
             <div className="profile__button-container">
-                {!isSuccess && <p className="profile__error profile__error_status_ok">{okMessage}</p>}
+                {okMessage && <p className="profile__error profile__error_status_ok">{okMessage}</p>}
                 {errors && <span className="profile__error profile__error_status_bad">{errorMessage}</span>}
               <button
                 type="submit"
@@ -111,7 +105,6 @@ function Profile ({ onSignOut, isSending, errorMessage, onUpdateUser, isBtnSaveV
                   ? 'profile__submit_type_disabled' 
                   : 'button-hover'}`}
                 name="saveProfileButton"
-                onClick={handleChangesSave}
                 disabled={blockedButton}>
                   {isSending ?'Сохранение..' : 'Сохранить'}
               </button>

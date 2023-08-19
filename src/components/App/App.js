@@ -1,5 +1,5 @@
 import React from 'react';
-import { Routes, Route, useNavigate } from 'react-router-dom';
+import { Routes, Route, useNavigate, Navigate } from 'react-router-dom';
 import Main from '../Main/Main';
 import Register from '../Register/Register';
 import Login from '../Login/Login'
@@ -15,6 +15,7 @@ import { useResize } from '../../hooks/useResize';
 
 function App() {
   const [loggIn, setLoggIn] = React.useState(false);
+  const [isTokenChecked, setIsTokenChecked] = React.useState(false);
   const [errorMessage, setErrorMessage] = React.useState('');
   const [okMessage, setOkMessage] = React.useState('');
   const [isUserSending, setIsUserSending] = React.useState(false);
@@ -59,7 +60,7 @@ function App() {
 
   function handleUpdateUser(data) {
     setIsUserSending(true);
-    mainApi.editUserData(data)
+    return mainApi.editUserData(data)
       .then((res) => {
         setCurrentUser(res.data);
         setIsBtnSaveVisible(false);
@@ -81,17 +82,23 @@ function App() {
 
   React.useEffect(() => {
     const token = localStorage.getItem("jwt");
+    if (!token) {
+      setIsTokenChecked(true);
+      return
+    }
+
     if (token) {
       mainApi.checkToken(token)
         .then((res) => {
           if (res) {
             setLoggIn(true);
-            navigate({replace: false});
+            setIsTokenChecked(true);
           }
         })
         .catch((err) => {
           console.log(err);
           localStorage.removeItem('jwt');
+          setIsTokenChecked(true);
         });
     }
   }, [])
@@ -199,9 +206,9 @@ function App() {
 
   React.useEffect(() => {
     setSelectedCheckbox(localStorage.getItem('selectedCheckbox' || '') === 'true');
-    const serchMovies = JSON.parse(localStorage.getItem('serchMovies'));
+    const serchMovies = JSON.parse(localStorage.getItem('serchMovies')) || [];
     setInitialMovies(serchMovies);
-    if (selectedCheckbox) {
+    if (localStorage.getItem('selectedCheckbox' || '') === 'true') {
       setFoundMovies(findShortMovie(serchMovies));
     } else {
       setFoundMovies(serchMovies);
@@ -333,28 +340,20 @@ function App() {
       <CurrentUserContext.Provider value={currentUser}>
         <Routes>
           <Route path="/" element={ <Main loggIn={loggIn} /> } />
-          {loggIn ? (
-            <Route path="/signup" element={
-              <Main loggIn={loggIn} />
-            } />
-          ) : (
-            <Route path="/signup" element={
+            <Route path="/signup" element={ isTokenChecked ?
+              <Navigate to="/" />
+            :
               <Register 
                 onRegister={handleRegister}
                 errorMessage={errorMessage} />
             } />
-          )}
-          {loggIn ? (
-            <Route path="/signin" element={
-              <Main loggIn={loggIn} />
-            } />
-          ) : (
-            <Route path="/signin" element={
+            <Route path="/signin" element={ isTokenChecked ?
+              <Navigate to="/" />
+            :
               <Login 
                 onLogin={handleLogin}
                 errorMessage={errorMessage} />
             } />
-          )}
           <Route path="/movies" element={
             <ProtectedRouteElement
               element={Movies}
@@ -375,7 +374,8 @@ function App() {
               setSelectedCheckbox={setSelectedCheckbox}
               setInitialMovies={setInitialMovies}
               setFoundMovies={setFoundMovies}
-              findShortMovie={findShortMovie} />
+              findShortMovie={findShortMovie}
+              isTokenChecked={isTokenChecked} />
           } />
           <Route path="/profile" element={
             <ProtectedRouteElement 
@@ -387,7 +387,8 @@ function App() {
               onUpdateUser={handleUpdateUser}
               isBtnSaveVisible={isBtnSaveVisible}
               setIsBtnSaveVisible={setIsBtnSaveVisible}
-              okMessage={okMessage} />
+              okMessage={okMessage}
+              isTokenChecked={isTokenChecked} />
           } />
           <Route path="/saved-movies" element={
             <ProtectedRouteElement
@@ -402,7 +403,8 @@ function App() {
             onDeleteMovie={handleMovieDelete}
             isSaveMovie={isSaveMovie}
             onSaveChange={handleChangeSaveCheckbox}
-            checkedSave={selectedSaveCheckbox} />
+            checkedSave={selectedSaveCheckbox}
+            isTokenChecked={isTokenChecked} />
           } />
           <Route path="*" element={<PageNotFound loggIn={loggIn} />} />
         </Routes>
