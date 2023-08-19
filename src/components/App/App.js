@@ -340,14 +340,14 @@ function App() {
       <CurrentUserContext.Provider value={currentUser}>
         <Routes>
           <Route path="/" element={ <Main loggIn={loggIn} /> } />
-            <Route path="/signup" element={ isTokenChecked ?
+            <Route path="/signup" element={ loggIn ?
               <Navigate to="/" />
             :
               <Register 
                 onRegister={handleRegister}
                 errorMessage={errorMessage} />
             } />
-            <Route path="/signin" element={ isTokenChecked ?
+            <Route path="/signin" element={ loggIn ?
               <Navigate to="/" />
             :
               <Login 

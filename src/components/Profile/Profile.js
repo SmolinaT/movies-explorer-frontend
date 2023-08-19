@@ -82,6 +82,7 @@ function Profile ({ onSignOut, isSending, errorMessage, onUpdateUser, isBtnSaveV
           </div>
           {!isBtnSaveVisible ? (
             <>
+              {okMessage && <p className="profile__error profile__error_status_ok">{okMessage}</p>}
               <button
                 className="profile__edit-button button-hover"
                 type="button"
@@ -97,8 +98,7 @@ function Profile ({ onSignOut, isSending, errorMessage, onUpdateUser, isBtnSaveV
             </>
           ) : (
             <div className="profile__button-container">
-                {okMessage && <p className="profile__error profile__error_status_ok">{okMessage}</p>}
-                {errors && <span className="profile__error profile__error_status_bad">{errorMessage}</span>}
+              {errors && <span className="profile__error profile__error_status_bad">{errorMessage}</span>}
               <button
                 type="submit"
                 className={`profile__submit ${blockedButton
