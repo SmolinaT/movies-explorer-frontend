@@ -42,10 +42,10 @@ function App() {
 
   React.useEffect(() => {
     if(loggIn) {
+      setIsLoading(true);
       Promise.all([mainApi.getUserData(), moviesApi.getMovies(), mainApi.getSavedMovies()])
       .then(([me, movie, savedMovie]) => {
         setCurrentUser(me);
-        setIsLoading(true);
         localStorage.setItem("movie", JSON.stringify(movie));
         setMovies(JSON.parse(localStorage.getItem("movie")));
         setSavedMovie(savedMovie);
@@ -172,8 +172,6 @@ function App() {
     return movies.filter((movie) => movie.duration <= 40);
   }
 
-  //console.log(movies)
-
   //Поиск фильмов в зависимости от продолжительности
   function selectFilmDuration(keyword) {
     const serchMovies = findMovie(movies, keyword);
@@ -202,7 +200,6 @@ function App() {
       setIsNotFound(false);
     }
   }
-  //console.log(foundMovies)
 
   React.useEffect(() => {
     setSelectedCheckbox(localStorage.getItem('selectedCheckbox' || '') === 'true');

@@ -25,8 +25,6 @@ function Profile ({ onSignOut, isSending, errorMessage, onUpdateUser, isBtnSaveV
   }, [currentUser, setValues, setIsBtnSaveVisible])
 
   function handleSubmit(e) {
-    console.log(values);
-    console.log(currentUser)
     e.preventDefault();
       onUpdateUser({
         name: values.name,
