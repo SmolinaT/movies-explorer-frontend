@@ -5,6 +5,23 @@
   flex-direction: column;
 }
 
+.movies__message {
+  display: block;
+  max-width: 900px;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 22px;
+  text-align: center;
+  margin: 80px auto 50px;
+  padding: 0;
+  color: #8B8B8B;
+}
+
+.movies__message_type_disabled {
+  display: none;
+}
+
 .movies__button {
   width: 1140px;
   height: 36px;
@@ -24,13 +41,27 @@
   padding-bottom: 9px;
 }
 
+.movies__button_type_hidden {
+  visibility: hidden;
+}
+
 @media screen and (max-width: 1150px) {
+  .movies__message {
+    max-width: 708px;
+    font-size: 12px;
+    line-height: 18px;
+  }
+  
   .movies__button {
     width: 708px;
   }
 }
 
 @media screen and (max-width: 710px) {
+  .movies__message {
+    max-width: 550px;
+  }
+  
   .movies__button {
     width: 550px;
   }
@@ -41,6 +72,10 @@
     margin-bottom: 80px;
   }
   
+  .movies__message {
+    max-width: 300px;
+  }
+
   .movies__button {
     width: 300px;
   }

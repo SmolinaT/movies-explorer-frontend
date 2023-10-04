@@ -1,10 +1,47 @@
 .movies-save__container {
   max-width: 1140px;
   margin: 0 auto 180px;
+  display: flex;
+  flex-direction: column;
+}
+
+.movies-save__message {
+  display: block;
+  max-width: 900px;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 22px;
+  text-align: center;
+  margin: 80px auto 50px;
+  padding: 0;
+  color: #8B8B8B;
+}
+
+.movies-save__message_type_disabled {
+  display: none;
+}
+
+@media screen and (max-width: 1150px) {
+  .movies-save__message {
+    max-width: 708px;
+    font-size: 12px;
+    line-height: 18px;
+  }
+}
+
+@media screen and (max-width: 710px) {
+  .movies-save__message {
+    max-width: 550px;
+  }
 }
 
 @media screen and (max-width: 560px) {
   .movies-save__container {
     margin-bottom: 170px;
+  }
+
+  .movies-save__message {
+    max-width: 300px;
   }
 }

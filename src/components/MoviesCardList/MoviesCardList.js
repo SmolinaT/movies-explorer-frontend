@@ -2,34 +2,30 @@ import React from 'react';
 import './MoviesCardList.css'
 import MoviesCard from '../MoviesCard/MoviesCard';
 
-function MoviesCardList() {
+function MoviesCardList({ movies, initialMoviesCard, onSave, isMoviesPage, savedMovies, isSaveMovie, onDeleteMovie }) {
+
   return (
     <section className="movies-list">
-      <MoviesCard>
-        <button
-          className="movies-list__button movies-list__button_type_save button-hover"
-          type="button"/>
-      </MoviesCard>
-      <MoviesCard>
-        <button
-          className="movies-list__button movies-list__button_status_active button-hover"
-          type="button"/>
-      </MoviesCard>
-      <MoviesCard>
-        <button
-          className="movies-list__button movies-list__button_type_save button-hover"
-          type="button"/>
-      </MoviesCard>
-      <MoviesCard>
-        <button
-          className="movies-list__button movies-list__button_type_save button-hover"
-          type="button"/>
-      </MoviesCard>
-      <MoviesCard>
-        <button
-          className="movies-list__button movies-list__button_status_active button-hover"
-          type="button"/>
-      </MoviesCard>
+      {isMoviesPage ? (
+        movies.slice(0, initialMoviesCard).map((movie) => (
+          <MoviesCard key={movie.id || movie._id}
+            movie={movie}
+            isMoviesPage={isMoviesPage}
+            onSave={onSave}
+            isSaveMovie={isSaveMovie}
+            onDeleteMovie={onDeleteMovie} />
+        ))
+      )
+      : (
+        savedMovies.map((movie) => (
+          <MoviesCard key={movie.id || movie._id}
+            movie={movie}
+            isMoviesPage={isMoviesPage}
+            onDeleteMovie={onDeleteMovie}
+            isSaveMovie={isSaveMovie}
+            isOnlySaved={true}/>
+        ))
+      )}
     </section>
   );
 }

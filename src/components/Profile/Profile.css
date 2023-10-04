@@ -1,4 +1,4 @@
-.profile__container {
+.profile {
   max-width: 410px;
   display: flex;
   flex-direction: column;
@@ -17,6 +17,13 @@
   color: #FFFFFF;
   margin: 0;
   padding: 70px 0 123px;
+}
+
+.profile__form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin: 0;
 }
 
 .profile__content {
@@ -63,6 +70,33 @@
   background-color: #202020;
 }
 
+.profile__input-error {
+  margin: 0;
+  color: #EE3465;
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  margin-bottom: 15px;
+}
+
+.profile__error {
+  text-align: center;
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  padding-bottom: 20px;
+}
+
+.profile__error_status_ok {
+  color: #2BE080;
+}
+
+.profile__error_status_bad {
+  color: #FF004C;
+}
+
 .profile__edit-button {
   width: 100%;
   color: #FFFFFF;
@@ -88,8 +122,30 @@
   background-color: #202020;
 }
 
+.profile__submit {
+  width: 396px;
+  height: 45px;
+  background-color: #4285F4;
+  border-radius: 3px;
+  border: none;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  text-align: center;
+  color:  #FFFFFF;
+  padding: 0;
+  margin: 0;
+}
+
+.profile__submit_type_disabled {
+  background-color: #F8F8F8;
+  color: #C2C2C2;
+  cursor: auto;
+}
+
 @media screen and (max-width: 768px) {
-  .profile__container {
+  .profile {
     margin-top: 233px;
     padding-bottom: 269px;
   }
@@ -109,7 +165,7 @@
 }
 
 @media screen and (max-width: 450px) {
-  .profile__container {
+  .profile {
     max-width: 260px;
     margin-top: 66px;
     padding-bottom: 40px;
@@ -128,6 +184,11 @@
   }
   
   .profile__close-button {
+    font-size: 12px;
+  }
+
+  .profile__submit {
+    width: 260px;
     font-size: 12px;
   }
 }
